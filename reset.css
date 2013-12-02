@@ -100,25 +100,25 @@ figure {margin: 0;}
 	font-family: 'nanum';
 	font-style: normal;
 	font-weight: 400;
-	src: url(../font/NanumGothic-Regular.eot);
-	src: url(../font/NanumGothic-Regular.eot?#iefix) format('embedded-opentype'),
-	url(../font/NanumGothic-Regular.woff) format('woff');
+	src: url(/font/NanumGothic-Regular.eot);
+	src: url(/font/NanumGothic-Regular.eot?#iefix) format('embedded-opentype'),
+	url(/font/NanumGothic-Regular.woff) format('woff');
 }
 
 @font-face {
 	font-family: 'nanum';
 	font-style: normal;
 	font-weight: 700;
-	src: url(../font/NanumGothic-Bold.eot);
-	src: url(../font/NanumGothic-Bold.eot?#iefix) format('embedded-opentype'),
-	url(../font/NanumGothic-Bold.woff) format('woff');
+	src: url(/font/NanumGothic-Bold.eot);
+	src: url(/font/NanumGothic-Bold.eot?#iefix) format('embedded-opentype'),
+	url(/font/NanumGothic-Bold.woff) format('woff');
 }
 
 @font-face {
 	font-family: 'nanum';
 	font-style: normal;
 	font-weight: 800;
-	src: url(../font/NanumGothic-ExtraBold.eot);
-	src: url(../font/NanumGothic-ExtraBold.eot?#iefix) format('embedded-opentype'),
-	url(../font/NanumGothic-ExtraBold.woff) format('woff');
+	src: url(/font/NanumGothic-ExtraBold.eot);
+	src: url(/font/NanumGothic-ExtraBold.eot?#iefix) format('embedded-opentype'),
+	url(/font/NanumGothic-ExtraBold.woff) format('woff');
 }
