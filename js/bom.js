@@ -22,11 +22,12 @@ $.extend({
 });
 
 
-/*
+/*****************************
  * 예약일과 현재일의 차이 계산
  * 날짜 차이 계산 함수
  * date1 : (미래)기준 날짜(YYYY-MM-DD), date2 : (현재)대상 날짜(YYYY-MM-DD)
- */
+ * @example :  getDateDiff('2014-01-01','2013-12-31');
+ *****************************/
 function getDateDiff(date1,date2){
 	var arrDate1 = date1.split("-");
 	var getDate1 = new Date(parseInt(arrDate1[0]),parseInt(arrDate1[1])-1,parseInt(arrDate1[2]));
