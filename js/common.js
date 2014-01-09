@@ -73,3 +73,81 @@ function chkLtGt(obj){
 	}
 }
 
+/**
+ * Validator Func
+ * UserID input Chk
+ * @param targetValue {string}
+ * @returns {boolean}
+ */
+function chkUserId(targetValue){
+	var _id = targetValue;
+	var isStr = /^.*(?=.{6,20})(?=.*[a-zA-Z])(?=.*[0-9]).*$/;
+	var isMark = /^.*(?=.*\~|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\_|\+|\-|\=\{|\}|\[|\]|\;|\'|\:|\"|\<|\>|\?|\,|\.|\/|\`).*$/;
+	var isErr = false;
+
+	for (i = 0; i < _id.length; i++) {
+		var retCode = _id.charCodeAt(i)
+		var retChar = _id.substr(i,1).toUpperCase()
+		retCode = parseInt(retCode)
+
+		if ( (retChar < "0" || retChar > "9") && (retChar < "A" || retChar > "Z") && ((retCode > 255) || (retCode < 0)) ) {
+			isErr = true;
+			break;
+		} else if(isMark.test(_id)) {
+			isErr = true;
+			break;
+		}
+	}
+
+	if (_id.length < 6){
+		return false;
+	} else if(isErr || !isStr.test(_id)){
+		return false;
+	} else {
+		return true;
+	}
+
+}
+
+/**************
+ * Validator Func
+ * UserPass input Check
+ * @param targetValue {string}
+ * @returns {boolean}
+ */
+function chkUserPass(targetValue){
+	var _pw = targetValue;
+
+	if ( _pw.length < 6 ){
+		return false;
+	} else {
+		if(!pw_chk(_pw)){
+			return false;
+		} else {
+			//정상
+			return true;
+		}
+	}
+
+	function pw_chk(str) {
+		var isEngNum = /^.*(?=.{6,20})(?=.*[a-zA-Z])(?=.*[0-9]).*$/;
+		var isEngMark = /^.*(?=.{6,20})(?=.*[a-zA-Z])(?=.*[\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\_|\+|\-|\=|\~]).*$/;
+		var isMarkNum = /^.*(?=.*[\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\_|\+|\-|\=|\~])(?=.*[0-9]).*$/;
+		var isNoMark = /^.*(?=.*\[|\]|\{|\}|\:|\"|\;|\'|\<|\>|\?|\,|\.|\/|\\s).*$/;
+		var isWhiteSpace = /\s/;
+
+		if (isWhiteSpace.test(str)){
+			return false
+		}
+		if ( isEngNum.test(str) && !isNoMark.test(str) ) {
+			return true;
+		}
+		if ( isEngMark.test(str) && !isNoMark.test(str) ) {
+			return true;
+		}
+		if ( isMarkNum.test(str) && !isNoMark.test(str) ) {
+			return true;
+		}
+		return false;
+	}
+}
