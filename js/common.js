@@ -13,10 +13,6 @@
 	}
 })();
 
-
-
-
-
 /**
  * form validator Func
  * only Number

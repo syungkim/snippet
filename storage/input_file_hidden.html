@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ko" lang="ko">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<title>파일첨부 디자인</title>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.8.0.min.js"></script>
+</head>
+<body>
+<style type="text/css">
+
+span {
+	position:relative;
+	top:0;
+	left:0;
+	display:inline-block;
+	width:82px;
+	height:23px;
+	overflow:hidden;
+	background:#ccc;
+}
+
+.label {
+	display:inline-block;
+	position:absolute;
+	top:0;left:0;
+	width:80px;height:20px;
+	color:#333;
+	text-align:center;
+	line-height:23px;
+}
+
+input:focus + label{
+	border:1px dashed red;
+}
+
+input[type="file"] {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 82px;
+	height: 23px;
+	margin: 0;
+	padding: 0;
+	opacity: .01;
+	filter: alpha(opacity=0.1);
+	z-index: 30;
+	cursor: pointer;
+}
+
+input[type="file"]::-webkit-file-upload-button {
+	display:none;
+}
+
+</style>
+<p>첨부파일 디자인</p>
+<p>ie7-10 , 크롬 , 파폭, 오페라 확인</p>
+<span><input id="file" type="file" title="파일첨부"/><label for="file" class="label">파일첨부</label></span>
+</body>
+</html>

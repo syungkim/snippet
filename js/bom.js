@@ -1,26 +1,16 @@
-/***********************
- Get URL Parameter
-
- @example -
- Get object of URL parameters : var allVars = $.getUrlVars();
- Getting URL var by its nam :  	var byName = $.getUrlVar('name');
- ***********************/
-$.extend({
-	getUrlVars: function(){
-		var vars = [], hash;
-		var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
-		for(var i = 0; i < hashes.length; i++) {
-			hash = hashes[i].split('=');
-			vars.push(hash[0]);
-			vars[hash[0]] = hash[1];
-		}
-		return vars;
-	},
-	getUrlVar: function(name) {
-		return $.getUrlVars()[name];
-	}
-});
-
+/*********************
+ * Get URL Parameter Value
+ * @returns {{}}
+ * getUrlParam()["type"];
+ **********************/
+function getUrlParam() {
+	var vars = {};
+	var parts = location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi,
+		function(m,key,value) {
+			vars[key] = decodeURIComponent(value);
+		});
+	return vars;
+}
 
 /**
  * 예약일과 현재일의 차이 계산

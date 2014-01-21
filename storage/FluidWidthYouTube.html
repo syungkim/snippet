@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset=utf-8>
+	<title>Fluid Width YouTube Videos</title>
+	
+	<meta name="viewport" content="width=device-width"> 
+	
+	<style>
+		* { margin: 0; padding: 0; }
+		html { background: black; }
+		body script { display: block; white-space: pre; font: 11px Monaco, MonoSpace; margin: 0 0 20px 0; overflow-x: scroll; }
+		h1 { font: bold 50px/1 Sans-Serif; letter-spacing: -2px; margin: 0 0 20px 0; }
+
+		body { width: 50%; margin: 50px auto; padding: 20px; background: white; }
+		iframe { width: 100%; margin: 0 0 20px 0; }
+		
+		@media (max-width: 480px) {
+			body { width: 90%; }
+		}
+		
+	</style>
+	
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+	
+</head>
+
+<body>
+
+	<h1>Fluid Width YouTube Videos<br>
+	<small>of Different Aspect Ratios</small></h1>
+	
+	<iframe width="1280" height="750" src="http://www.youtube.com/embed/MmpAXq7sq8s?rel=0&amp;hd=1" frameborder="0" allowfullscreen></iframe>
+	
+	<iframe width="960" height="750" src="http://www.youtube.com/embed/8neXfLo2f3o?rel=0&amp;hd=1" frameborder="0" allowfullscreen></iframe>
+	
+	<iframe width="300" height="420" src="http://www.youtube.com/embed/Odo0RcqBVDc?rel=0" frameborder="0" allowfullscreen></iframe>
+	
+	<h1>jQuery Script</h1>
+	
+	<script>// By Chris Coyier & tweaked by Mathias Bynens
+
+$(function() {
+
+	// Find all YouTube videos
+	var $allVideos = $("iframe[src^='http://www.youtube.com']"),
+
+	    // The element that is fluid width
+	    $fluidEl = $("body");
+
+	// Figure out and save aspect ratio for each video
+	$allVideos.each(function() {
+
+		$(this)
+			.data('aspectRatio', this.height / this.width)
+			
+			// and remove the hard coded width/height
+			.removeAttr('height')
+			.removeAttr('width');
+
+	});
+
+	// When the window is resized
+	// (You'll probably want to debounce this)
+	$(window).resize(function() {
+
+		var newWidth = $fluidEl.width();
+		
+		// Resize all videos according to their own aspect ratio
+		$allVideos.each(function() {
+
+			var $el = $(this);
+			$el
+				.width(newWidth)
+				.height(newWidth * $el.data('aspectRatio'));
+
+		});
+
+	// Kick off one resize to fix all videos on page load
+	}).resize();
+
+});</script>
+
+</body>
+
+</html>
+
+

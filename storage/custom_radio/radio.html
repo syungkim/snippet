@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ko" lang="ko">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width, user-scalable=no" />
+<title></title>
+<style type="text/css">
+html, body, div, span, applet, object, iframe,h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code,del, dfn, em, font, img, ins, kbd, q, s, samp,small, strike, strong, sub, sup, tt, var, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td { margin: 0; padding: 0; border: 0; outline: 0; font-weight: inherit; font-style: inherit; font-size: 100%; font-family: inherit; vertical-align: baseline}
+body { line-height: 1; color: black; background: white;}
+ol, ul { list-style: none;}
+table { border-collapse: separate; border-spacing: 0;}
+caption, th, td { text-align: left; font-weight: normal;}
+</style>
+</head>
+<body>
+<style type="text/css">
+.customRadio {display:inline-block;margin:30px;outline:1px solid #000;}
+.customRadio:after {content:"";display:block;clear:both;}
+input[type="radio"],
+input[type="radio"]:focus {position:absolute;-moz-appearance:none;-webkit-appearance:none;z-index:-1}
+input[type="radio"] + label {padding-left:21px;}
+input[type="radio"] + label:before {content:"";display:inline-block;width:21px;height:21px;margin-right:2px;margin-left:-21px;background:url('radio_off.png') no-repeat; background-size:21px 21px;vertical-align:middle;}
+input[type="radio"]:checked + label:before {background-image:url('radio_on.png')}
+
+.hidden {overflow:hidden;width:0;height:0;font-size:0;text-indent:-9999px;}
+</style>
+<p>[CSS] 모바일에서 사용하는, 커스텀디자인 라디오버튼</p>
+	<div class="customRadio">
+		<input type="radio" name="radio" id="radio1">
+		<label for="radio1">라디오버튼1</label>
+	</div>
+	<div class="customRadio">
+		<input type="radio" name="radio"id="radio2">
+		<label for="radio2">라디오버튼1</label>
+	</div>
+	<div class="customRadio">
+		<input type="radio" name="radio2" id="radio3">
+		<label for="radio3">라디오버튼2</label>
+	</div>
+	<div class="customRadio">
+		<input type="radio" name="radio2"id="radio4">
+		<label for="radio4">라디오버튼2</label>
+	</div>
+	<div class="customRadio">
+		<input type="radio" name="radio3" id="radio5">
+		<label for="radio5" class="hidden">라디오버튼hidden</label>
+	</div>
+	<div class="customRadio">
+		<input type="radio" name="radio3"id="radio6">
+		<label for="radio6" class="hidden">라디오버튼hidden</label>
+	</div>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ko" lang="ko">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<title></title>
+<style type="text/css">
+html, body, div, span, applet, object, iframe,h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code,del, dfn, em, font, img, ins, kbd, q, s, samp,small, strike, strong, sub, sup, tt, var, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td { margin: 0; padding: 0; border: 0; font-weight: inherit; font-style: inherit; font-size: 100%; font-family: inherit; vertical-align: baseline}
+body { line-height: 1; color: black; background: white;}
+ol, ul { list-style: none;}
+table { border-collapse: separate; border-spacing: 0;}
+caption, th, td { text-align: left; font-weight: normal;}
+</style>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.0.min.js"></script>
+<style type="text/css">
+.fileAttach {overflow:hidden;position:relative;top:0;left:0;width:300px;padding:5px;}
+.fileAttach-file {display:none}
+.fileAttach-text {float:left;width:220px;height:25px;padding:0 2px;border:1px solid #555;}
+.fileAttach-button {float:right;margin:0;padding:6px 5px;background:#333;border:none;color:#fff;border-radius:5px;}
+</style>
+</head>
+<body>
+<div class="fileAttach">
+	<input class="fileAttach-file" type="file" name="" />
+	<input class="fileAttach-text" type="text" name="" readonly/>
+	<input class="fileAttach-button" type="button" value="찾아보기" title="첨부파일 찾아보기"/>
+</div>
+<div class="fileAttach">
+	<input class="fileAttach-file" type="file" name="" />
+	<input class="fileAttach-text" type="text" name="" readonly/>
+	<input class="fileAttach-button" type="button" value="찾아보기" title="첨부파일 찾아보기"/>
+</div>
+<div class="fileAttach">
+	<input class="fileAttach-file" type="file" name="" />
+	<input class="fileAttach-text" type="text" name="" readonly/>
+	<input class="fileAttach-button" type="button" value="찾아보기" title="첨부파일 찾아보기"/>
+</div>
+<script type="text/javascript">
+//<![CDATA[
+$(function(){
+	var fileAtta = $('.fileAttach');
+	fileAtta.find('.fileAttach-button, .fileAttach-text').click(function(e){
+		$(this).siblings('.fileAttach-file').click();
+		e.preventDefault();
+	});
+
+	fileAtta.find('.fileAttach-file').on('change',function(e){
+		var valArray = $(this).val().split('\\');
+		$(this).siblings('.fileAttach-text').val(valArray[valArray.length-1]);
+	})
+})
+//]]>
+</script>
+</body>
+</html>

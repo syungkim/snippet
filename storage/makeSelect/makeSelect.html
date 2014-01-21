@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ko" lang="ko">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<title></title>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.8.0.min.js"></script>
+<script type="text/javascript" src="select_min.js"></script>
+<style type="text/css">
+body {padding:20px;font-size:12px;}
+
+.listBox {position:relative;top:0;left:0;display:inline-block;vertical-align:top;}
+.listBox * {margin:0;padding:0;vertical-align:middle;text-decoration:none;}
+.listBox-combo {display:block}
+.listBox-combo > a {display:block;height:20px;border:1px solid #959595;white-space:nowrap;font-size:12px;line-height:20px;color:#606060;cursor:pointer;}
+.listBox-combo > a:after {content:"";display:block;clear:both}
+.listBox-combo-txt {float:left;padding:0 4px;overflow:hidden;text-overflow:ellipsis}
+.listBox-combo-arrow {float:left;width:0px;height:0px;margin:7px 5px 0;border-right:5px solid transparent;border-left:5px solid transparent;border-top:8px solid #959595;}
+.listBox-combo-arrow.on {border-top:none;border-bottom:8px solid #959595;}
+.listBox-list {overflow-x:hidden;overflow-y:auto;position:absolute;top:auto;left:0;background:#fff;border:1px solid #ccc;list-style:none;z-index:1;}
+.listBox-list > li > a{display:block;padding:3px 4px;color:#606060;text-overflow:ellipsis;white-space:nowrap}
+.listBox-list > li > a:focus,
+.listBox-list > li > a:hover,
+.listBox-list > li.selected > a {background-color:#f0f7fb;color:#2366b2;}
+/* 위로
+.listBox-list {position:absolute;bottom:20px;left:0;}
+*/
+</style>
+</head>
+<body>
+
+<ul>
+	<li>최초생성 : $('select').makeListBox();</li>
+	<li>ajax 통신 후 : $('select').refreshListBox();</li>
+</ul>
+
+
+	<ul>
+		<li>option - title=""값 사용가능 </li>
+	</ul>
+	<select id="siteLink">
+		<option value=''>관련사이트</option>
+		<option value="http://www.naver.com" title="새창열림">네이버</option>
+		<option value="http://www.daum.net" title="새창열림">다음</option>
+		<option value="http://www.nate.com" title="새창열림">nate</option>
+	</select>
+
+	<select name="" id="select2">
+		<option value="6">기간전체</option>
+		<option value="7">최근3개월</option>
+		<option value="8">최근6개월</option>
+		<option value="9">최근1년</option>
+		<option value="10">최근....</option>
+	</select>
+<div>
+	<ul>
+		<li>select의 id값이 data-origin 값으로 들어감</li>
+		<li>data-class 속성으로 개별 클래스 지정</li>
+		<li>data-maxHeight 속성 : 리스트 스크롤 처리</li>
+		<li>data-width 속성 : 리스트 최소넓이 지정 (작업중) </li>
+		<li>&lt;select data-class="select_termList" data-maxHeight="150"&gt;</li>
+	</ul>
+
+	<select name="" id="select3" data-class="select_termList" data-maxHeight="150">
+		<option value="11">444444444</option>
+		<option value="12">12345678901234567890</option>
+		<option value="13">1111111</option>
+		<option value="14">111155555111111</option>
+		<option value="15">111155d1112</option>
+		<option value="15">111155d1112</option>
+		<option value="15">111155d1112</option>
+		<option value="15">11115sdfsdfsfsdfsdfsdsdsdf5d1112</option>
+		<option value="15">111155d1112</option>
+		<option value="15">111155d1112</option>
+		<option value="15">111155d1112</option>
+		<option value="15">111155d1112</option>
+		<option value="15">111155d1112</option>
+	</select>
+</div>
+<div>
+	<select name="" id="select4" data-width="150" >
+		<option value="16">2225555522222</option>
+		<option value="17">111sdfsdfsfssddfsdfsdfdf555555111111</option>
+		<option value="18">1111111</option>
+		<option value="19">555555</option>
+		<option value="20">111555551111111</option>
+		<option value="20">111555551111111</option>
+		<option value="20">111555551111111</option>
+		<option value="20">111555551111111</option>
+		<option value="20">111555551111111</option>
+		<option value="20">111555551111111</option>
+		<option value="20">111555551111111</option>
+		<option value="20">111555551111111</option>
+		<option value="20">111555551111111</option>
+		<option value="20">111555551111111</option>
+		<option value="20">111555551111111</option>
+	</select>
+</div>
+<script>
+$(function(){
+	$('select').makeListBox();
+	/* family site */
+	$('#siteLink').on('change',function(e){
+		var _value = $(this).val();
+		if (_value != undefined && _value != null && _value != ''){
+			window.open(_value);
+		}
+		e.preventDefault();
+	});
+
+})
+</script>
+</body>
+</html>
