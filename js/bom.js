@@ -2,6 +2,7 @@
  * Get URL Parameter Value
  * @returns {{}}
  * getUrlParam()["type"];
+ * 현재 파라미터에서 값 추출
  **********************/
 function getUrlParam() {
 	var vars = {};
@@ -17,6 +18,7 @@ function getUrlParam() {
  * @param targetParam {string} param.key
  * @param data	{string}	param.value
  * @param options {boolean}
+ * 현재 파라미터에 값 추가 / 제거
  *********************/
 function sortByParam(targetParam, data, options){
 	var __param = location.search.substr(1);
