@@ -12,6 +12,35 @@ function getUrlParam() {
 	return vars;
 }
 
+/*********************
+ * sortByParam func
+ * @param targetParam {string} param.key
+ * @param data	{string}	param.value
+ * @param options {boolean}
+ *********************/
+function sortByParam(targetParam, data, options){
+	var __param = location.search.substr(1);
+	var tmpArr  = __param.split('&');
+
+	if (__param.length){
+		$.each(tmpArr, function(index){
+			if ( tmpArr[index].indexOf(targetParam) != -1 ){
+				tmpArr.splice(index,1);
+				return false;
+			}
+		});
+		var resultParam = tmpArr.join('&');
+		resultParam = (resultParam.length) ? '&'+resultParam : '';
+		if (options == 'delete'){
+			location.href = __path+'?'+ (resultParam).substr(1);
+		} else {
+			location.href = __path+'?'+ targetParam+'='+ data + resultParam;
+		}
+	} else {
+		location.href = __path+'?'+targetParam+'='+data;
+	}
+}
+
 /**
  * 예약일과 현재일의 차이 계산
  * @param date1 : (미래)기준 날짜(YYYY-MM-DD)
