@@ -1,10 +1,21 @@
 /****************
  * jQuery Custom SelectBox
- * listBox
+ * jqListBox
  * update : 2013/10/26
  *****************/
 (function($){
-	$.fn.makeListBox = function(){
+	"use strict";
+
+	var isMobile = function(){
+		if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+			return true;
+		} else {
+			return false
+		}
+	};
+
+	$.fn.jqListBox = function(){
+
 		return this.each(function(index){
 
 			var $this = $(this),
@@ -12,30 +23,35 @@
 				origin_Txt = [],
 				origin_Tit = [],
 				origin_Val = [],
-				IndexZ = 20-index;
+				IndexZ = 20-index,
+				selectedIdx = $this.find('option:selected').index();
 
-			var className = ($this.attr('data-class')) ? ' '+$this.attr('data-class') : '',
-				idName = ($this.attr('id')) ? $this.attr('id') : '';
+			var className = ($this.data('class')) ? ' '+$this.data('class') : '',
+				idName = ($this.attr('id')) ? $this.attr('id') : '',
+				_originWidth = ($this.data('width')) ? $this.data('width') : $this.width();
 
 			$.each($this.find('option'),function(){
 				var list = $(this);
 				origin_Txt.push( list.text() );
 				origin_Val.push( list.val() );
-				origin_Tit.push( list.attr('title') );
+				origin_Tit.push( ( list.attr('title') ) ? list.attr('title') : list.text() );
 			});
 
 			var make = {
 				el : function(){
-					var $listbox = $this.next('.listBox'),
-						$combo = $listbox.find('.listBox-combo > a '),
-						$comboTxt = $combo.find('.listBox-combo-txt'),
-						$list = $listbox.find('.listBox-list'),
-						$option = $list.find('.listBox-option');
+					var $listbox = $this.next('.jqListBox'),
+						$combo = $listbox.find('.jqListBox-combo > a '),
+						$comboTxt = $combo.find('.jqListBox-combo-txt'),
+						$comboArrow = $combo.find('.jqListBox-combo-arrow'),
+						$list = $listbox.find('.jqListBox-list'),
+						$option = $list.find('.jqListBox-option');
+
 
 					return {
 						listbox : $listbox,
 						combo : $combo,
 						comboTxt : $comboTxt,
+						comboArr : $comboArrow,
 						list : $list,
 						option : $option
 					}
@@ -45,27 +61,28 @@
 					this.makeHTML();
 					this.setListBoxWidth();
 					this.bindEvent();
+					this.changeOption(selectedIdx);
 				},
 
 				makeHTML : function(){
 					var html ='';
 					var selected = '';
 
-						html +=  '<span class="listBox'+className+'"data-origin="'+idName+'" style="z-index:'+IndexZ+'">';
-						html += 	'<span class="listBox-combo"><a href="#" data-id="0"><span class="listBox-combo-txt">'+origin_Txt[0]+'</span><span class="listBox-combo-arrow"></span></a></span>';
+						html +=  '<span class="jqListBox'+className+'"data-origin="'+idName+'" style="z-index:'+IndexZ+'">';
+						html += 	'<span class="jqListBox-combo"><a href="#" data-id="0"><span class="jqListBox-combo-txt">'+origin_Txt[0]+'</span><span class="jqListBox-combo-arrow"></span></a></span>';
 
-					if (!$this.attr('data-maxHeight')){
-						html += 	'<ul class="listBox-list" role="listbox" style="display:none">';
+					if (!$this.data('maxheight')){
+						html += 	'<ul class="jqListBox-list" role="listbox" style="display:none">';
 					} else {
-						html += 	'<ul class="listBox-list" role="listbox" style="display:none;max-height:'+$this.attr('data-maxHeight')+'px">';
+						html += 	'<ul class="jqListBox-list" role="listbox" style="display:none;max-height:'+$this.data('maxheight')+'px">';
 					}
 
 					for (var i=0;i < Len;i++){
 						var title = (origin_Tit[i] != undefined) ? 'title='+origin_Tit[i] : '';
 						if (i!=0){
-							html += 	'<li class="listBox-option" data-id="'+i+'" data-val="'+origin_Val[i]+'" role="option"><a href="#" '+title+'>'+origin_Txt[i]+'</a></li>';
+							html += 	'<li class="jqListBox-option" data-id="'+i+'" data-val="'+origin_Val[i]+'" role="option"><a href="#" '+title+'>'+origin_Txt[i]+'</a></li>';
 						} else {
-							html += 	'<li class="listBox-option selected" data-id="'+i+'" data-val="'+origin_Val[i]+'" role="option"><a href="#" '+title+'>'+origin_Txt[i]+'</a></li>';
+							html += 	'<li class="jqListBox-option selected" data-id="'+i+'" data-val="'+origin_Val[i]+'" role="option"><a href="#" '+title+'>'+origin_Txt[i]+'</a></li>';
 						}
 					}
 					html += 	'</ul>';
@@ -76,31 +93,31 @@
 
 				setListBoxWidth : function(){
 					var el = this.el();
-                    el.comboTxt.innerWidth(el.list.width());
-                    el.list.width(el.combo.width())
+					var calWidth = _originWidth - el.comboArr.outerWidth();
+					el.comboTxt.width(calWidth);
+                    el.list.width(el.combo.width());
+
 				},
 
 				changeOption : function(idx){
 					var el = this.el();
 					el.option.removeClass('selected').eq(idx).addClass('selected');
-					el.combo.attr('data-id',idx).find('.listBox-combo-txt').text( origin_Txt[idx] );
+					el.combo.attr('data-id',idx).find('.jqListBox-combo-txt').text( origin_Txt[idx] );
 					$this.find('option:eq('+idx+')').prop("selected", true).end().change()
 				},
 
 				openList : function(){
 					var el = this.el();
-					el.combo.find('.listBox-combo-arrow').addClass('on');
-					el.list.stop().slideDown(100,function(){
+					el.combo.find('.jqListBox-combo-arrow').addClass('on');
+					el.list.slideDown(100,function(){
 						el.list.find('.selected > a').focus();
 					});
 				},
 
 				closeList : function(){
 					var el = this.el();
-					el.combo.find('.listBox-combo-arrow').removeClass('on');
-					el.list.stop().slideUp(100,function(){
-						el.combo.focus();
-					});
+					el.combo.find('.jqListBox-combo-arrow').removeClass('on');
+					el.list.slideUp(100);
 				},
 
 				bindEvent : function(){
@@ -120,14 +137,18 @@
 							if (e.keyCode == 38 || e.keyCode == 40){
 								root.openList();
 							}
+							if (e.keyCode == 9 && e.shiftKey){
+								root.closeList();
+							}
 						}
 					});
 
 					el.option.find('>a').on({
 						'click' : function(e){
-								var id = $(this).closest('li').attr('data-id');
+								var id = $(this).closest('li').data('id');
 							root.changeOption(id);
 							root.closeList();
+							el.combo.focus();
 							e.preventDefault();
 						},
 						'keydown' : function(e){
@@ -143,6 +164,10 @@
 								idx++;
 								el.option.eq(idx).find('>a').focus();
 							}
+							if (e.keyCode == 27){
+								root.closeList();
+								el.combo.focus();
+							}
 						}
 					});
 
@@ -156,21 +181,25 @@
 						}
 					});
 
-					el.list.on('mouseleave',function(){
+					el.listbox.on('mouseleave',function(){
 						root.closeList();
 					});
 				}
 			};
-			make.init();
+			if ($this.is('select')){
+				make.init();
+			}
 		});
 	};
 
-	$.fn.refreshListBox = function(){
-		return this.each(function(){
-			if ($(this).next('.listBox').length){
-				$(this).next('.listBox').remove();
-			}
-			$(this).makeListBox();
-		})
+	$.fn.refresh = function(){
+		if ($(this).is('select')){
+			return this.each(function(){
+				if ($(this).next('.jqListBox').length){
+					$(this).next('.jqListBox').remove();
+				}
+				$(this).makeListBox();
+			})
+		}
 	};
 })(jQuery);
