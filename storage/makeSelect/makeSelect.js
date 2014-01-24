@@ -58,10 +58,11 @@
 				},
 
 				init : function(){
-					this.makeHTML();
-					this.setListBoxWidth();
-					this.bindEvent();
-					this.changeOption(selectedIdx);
+					var _this = this;
+					_this.makeHTML();
+					_this.setListBoxWidth();
+					_this.bindEvent();
+					_this.changeOption(selectedIdx);
 				},
 
 				makeHTML : function(){
@@ -189,6 +190,20 @@
 			if ($this.is('select')){
 				make.init();
 			}
+			if (isMobile()){
+				$this.css({
+					'position' : 'absolute',
+					'width' : _originWidth,
+					'display' : 'block',
+					'opacity' : 0
+				}).next('.jqListBox').css('z-index','-1');
+
+				$this.change(function(){
+					make.changeOption($this.find('option:selected').index());
+				})
+
+
+			}
 		});
 	};
 
@@ -198,7 +213,7 @@
 				if ($(this).next('.jqListBox').length){
 					$(this).next('.jqListBox').remove();
 				}
-				$(this).makeListBox();
+				$(this).jqListBox();
 			})
 		}
 	};

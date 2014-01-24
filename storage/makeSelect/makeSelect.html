@@ -4,20 +4,20 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="Content-Script-Type" content="text/javascript" />
 <meta http-equiv="Content-Style-Type" content="text/css" />
+<meta name="viewport" content="width=device-width , initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 <title></title>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.8.0.min.js"></script>
 <script type="text/javascript" src="makeSelect.js"></script>
 <style type="text/css">
-body {padding:20px;font-size:12px;}
-*{margin:0;padding:0}
+	body {font-size:12px;}
+	*{margin:0;padding:0}
 
-.guide {padding:20px;background:#333;color:#fff;font-size:16px;font-family:'돋움', dotum, Helvetica, sans-serif;}
-.guide > li{margin:20px;list-style-type:decimal}
-.guide strong {color:#ff0}
-.guide .ex {}
-.guide .code {padding:5px;}
-
-.selectBoxs {padding:50px;}
+	.guide {padding:10px;background:#333;color:#fff;font-size:16px;font-family:'돋움', dotum, Helvetica, sans-serif;word-break:break-all}
+	.guide > li{margin:20px 0 20px 20px;list-style-type:decimal}
+	.guide strong {color:#ff0}
+	.guide .ex {}
+	.guide .code {padding:5px;}
+	.selectBoxs {padding:50px;}
 
 </style>
 <style>
@@ -37,7 +37,6 @@ body {padding:20px;font-size:12px;}
 </style>
 </head>
 <body>
-
 <ul class="guide">
 	<li><strong>최초생성</strong>
 		<p class="code">$('select').jqListBox();</p>
@@ -69,7 +68,7 @@ body {padding:20px;font-size:12px;}
 </ul>
 
 <div class="selectBoxs">
-	<!--
+
 	<select id="siteLink">
 		<option value=''>관련사이트</option>
 		<option value="http://www.naver.com" title="새창">네이버</option>
@@ -100,8 +99,8 @@ body {padding:20px;font-size:12px;}
 		<option value="15">111155d1112</option>
 		<option value="15">111155d1112</option>
 	</select>
--->
-	<select name="" id="select4" data-maxheight="120" data-width="400">
+
+	<select id="select4" data-maxheight="120">
 		<option value="16">2225555522222</option>
 		<option value="17">111sdfsdfsfssddfsdfsdfdf555555111111</option>
 		<option value="18">1111111</option>
@@ -118,21 +117,23 @@ body {padding:20px;font-size:12px;}
 		<option value="20">111555551111111</option>
 		<option value="20">111555551111111</option>
 	</select>
+	<p id="info"></p>
 
 </div>
-<script>
-$(window).load(function(){
-	$('select').jqListBox();
-	/* family site */
-	$('#siteLink').on('change',function(e){
-		var _value = $(this).val();
-		if (_value != undefined && _value != null && _value != ''){
-			window.open(_value);
-		}
-		e.preventDefault();
-	});
 
-})
+
+<script>
+	$(window).load(function(){
+		$('select').jqListBox();
+		/* family site */
+		$('#siteLink').on('change',function(e){
+			var _value = $(this).val();
+			if (_value != undefined && _value != null && _value != ''){
+				window.open(_value);
+			}
+			e.preventDefault();
+		});
+	})
 </script>
 </body>
 </html>
