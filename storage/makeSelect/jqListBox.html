@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ko" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name = "format-detection" content ="telephone=no">
+<meta name="viewport" content="width=device-width , initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<title>jQListBox - jQuery Custom Selectbox </title>
+<style>
+body {font-size:12px;font-family:'돋움', dotum, Helvetica, sans-serif;}
+*{margin:0;padding:0;}
+.intro {padding:10px;}
+.intro-par {margin:10px 0;font-size:14px;line-height:1.6em;}
+.guide {padding:10px;background:#444;color:#fff;font-size:16px;word-break:break-all}
+.guide li{margin:20px 0 20px 20px;list-style-type:decimal}
+.guide a {color:#fff;}
+.guide strong {color:#ff0}
+.guide .ex {}
+.guide .code {padding:5px;}
+.guide-css {padding:10px;background:#444;font-size:14px;color:#fff;line-height:1.6em;}
+.guide-css pre {font-family:'돋움', dotum, Helvetica, sans-serif;}
+.selectBoxs {margin:20px 20px 200px}
+.selectBoxs > div {margin:10px 0;}
+</style>
+<style>
+.jqListBox {position:relative;top:0;left:0;display:inline-block;*display:inline;*zoom:1;vertical-align:top;font-size:12px;font-family:"돋움",Dotum, arial, Sans-serif}
+.jqListBox * {margin:0;padding:0;vertical-align:middle;text-decoration:none;}
+.jqListBox-combo {display:block}
+.jqListBox-combo > a {display:block;height:20px;border:1px solid #959595;white-space:nowrap;font-size:12px;line-height:20px;color:#606060;cursor:pointer;*zoom:1;}
+.jqListBox-combo > a:after {content:"";display:block;clear:both}
+.jqListBox-combo-txt {float:left;overflow:hidden;text-overflow:ellipsis;text-indent:4px}
+.jqListBox-combo-arrow {float:left;width:20px;height:20px;background:#f7f5d2}
+.jqListBox-combo-arrow.on {background:#000}
+.jqListBox-list {overflow-x:hidden;overflow-y:auto;position:absolute;top:auto;left:0;background:#fff;border:1px solid #ccc;list-style:none;z-index:1;}
+.jqListBox-list > li > a{display:block;overflow:hidden;padding:3px 0;text-indent:4px;color:#606060;text-overflow:ellipsis;white-space:nowrap}
+.jqListBox-list > li > a:focus,
+.jqListBox-list > li > a:hover,
+.jqListBox-list > li.selected > a {background-color:#f0f7fb;color:#2366b2;}
+</style>
+<script src="http://code.jquery.com/jquery-1.8.0.min.js"></script>
+<script src="jqListBox_min.js"></script>
+</head>
+<body>
+<div class="intro">
+	<h1 class="intro-tit">jQListBox - jQuery SelectBox</h1>
+	<p class="intro-par"> 대부분의 커스텀셀렉트 라이브러리가 키보드접근을 지원하지 않거나, 하더라도 IE7을 지원하지 않는 등의 사용에 아쉬운점이 있어, 개인적으로 사용 할 목적으로 만들었음을 밝힙니다.<br />
+		<br />
+		IE7 ~ 10, 크롬30, 파이어폭스26, 오페라18 환경에서 테스트<br/>
+
+		피드백 : syung2nara@gamil.com<br />
+		JS파일 : <a href="jqListBox_min.js">[다른이름으로 저장] </a>
+	</p>
+</div>
+<div class="guide">
+	<h2>사용법</h2>
+	<ul>
+		<li><strong>최초생성</strong>
+			<p class="code">$('select').jqListBox();</p>
+		</li>
+		<li><strong>title 사용가능 (미지정시 option의 텍스트를 title로 추가)</strong>
+			<p class="ex">&lt;option /&gt;에 title입력 시 jQList에 title추가 됨</p>
+			<p class="code"> &lt;option value="http://www.nate.com" title="새창"&gt;nate&lt;/option&gt; </p>
+		</li>
+		<li><strong>select의 id값이 data-origin 값으로 들어감</strong>
+			<p class="ex">시스템셀렉트의 ID값이 jqList의 data-origin으로 들어가서, 현재 jqList의 기본셀렉트를 탐색하는 등의 활용</p>
+			<p class="code">var selectID = $('.jqListBox').data('origin')</p>
+		</li>
+		<li><strong>data-class 속성으로 개별 클래스 지정가능</strong>
+			<p class="ex">스타일이 다른 셀렉트를 만들 경우 해당 그룹끼리 공통으로 data-class에 값을 넣어 스타일 지정 등 의 활용</p>
+			<p class="code">&lt;select data-class="select_termList"&gt;  -&gt; &lt;span class="jqListBox select_termList"&gt;</p>
+		</li>
+		<li><strong>data-maxheight 속성 : 리스트 스크롤 처리</strong>
+			<p class="ex">data-maxheight에 설정한 값이 List의 max-height의 px값으로 지정되며 스크롤처리 가능</p>
+			<p class="code">&lt;select data-maxheight="150"&gt;</p>
+		</li>
+		<li><strong>data-width 속성 : 생성된 리스트 넓이 지정 (미지정시 시스템셀렉트의 넓이로 셋팅 , &lt option / &gt; 텍스트의 길이에 따라 자동으로 넓이 지정)</strong>
+			<p class="ex">data-width에 설정한 값이 jqListBox의 width px값으로 고정</p>
+			<p class="code">&lt;select data-width="2000"&gt;</p>
+		</li>
+		<li><strong>ajax로 option리스트 변경 후엔 .refresh() </strong>
+			<p class="ex">ajax로 option리스트를 변경했을 경우 해당 기본셀렉트에 .refresh() 로 갱신</p>
+			<p class="code">$('#sel1').empty().html(dynamicOption).refresh();</p>
+		</li>
+		<li>
+			<strong>모바일에서 토글시, 시스템셀렉트 열림</strong>
+			<p class="ex">작업중, 임시로 아래와같이 사용 </p>
+			<p class="code">&lt;span style="position:relative;"&gt;&lt;select&gt;&lt;/span&gt;</p>
+		</li>
+	</ul>
+</div>
+<div class="guide-css">
+	<h2>기본 스타일</h2>
+<pre>
+
+.jqListBox {position:relative;top:0;left:0;display:inline-block;*display:inline;*zoom:1;vertical-align:top;font-size:12px;font-family:"돋움",Dotum, arial, Sans-serif}
+.jqListBox * {margin:0;padding:0;vertical-align:middle;text-decoration:none;}
+.jqListBox-combo {display:block}
+.jqListBox-combo > a {display:block;height:20px;border:1px solid #959595;white-space:nowrap;font-size:12px;line-height:20px;color:#606060;cursor:pointer;*zoom:1;}
+.jqListBox-combo > a:after {content:"";display:block;clear:both}
+.jqListBox-combo-txt {float:left;overflow:hidden;text-overflow:ellipsis;text-indent:4px}
+.jqListBox-combo-arrow {float:left;width:20px;height:20px;background:#f7f5d2}
+.jqListBox-combo-arrow.on {background:#000}
+.jqListBox-list {overflow-x:hidden;overflow-y:auto;position:absolute;top:auto;left:0;background:#fff;border:1px solid #ccc;list-style:none;z-index:1;}
+.jqListBox-list > li > a{display:block;overflow:hidden;padding:3px 0;text-indent:4px;color:#606060;text-overflow:ellipsis;white-space:nowrap}
+.jqListBox-list > li > a:focus,
+.jqListBox-list > li > a:hover,
+.jqListBox-list > li.selected > a {background-color:#f0f7fb;color:#2366b2;}
+
+</pre>
+</div>
+
+<div class="selectBoxs">
+	<div>
+		<select id="siteLink">
+			<option value=''>관련사이트</option>
+			<option value="http://www.naver.com" title="새창">네이버</option>
+			<option value="http://www.daum.net" title="새창">다음</option>
+			<option value="http://www.nate.com" title="새창">nate</option>
+		</select>
+	</div>
+	<div>
+		<select name="" id="select2">
+			<option value="6">기간전체</option>
+			<option value="7">최근3개월</option>
+			<option value="8">최근6d개월</option>
+			<option value="9">최근1년</option>
+			<option value="10">최근....</option>
+		</select>
+	</div>
+	<select name="" id="select3" data-class="select_termList" data-maxHeight="150">
+		<option value="11">인기/신규서비스</option>
+		<option value="12">포스트</option>
+		<option value="13">도돌런처</option>
+		<option value="14">밴드</option>
+		<option value="15">라인</option>
+		<option value="15">이야기</option>
+		<option value="15">스토어</option>
+		<option value="15" selected>개발자센터</option>
+		<option value="15">고속도로 상황</option>
+		<option value="15">스팸폭탄</option>
+		<option value="15">오픈캐스트</option>
+		<option value="15">이마트몰</option>
+		<option value="15">롯데닷컴</option>
+	</select>
+	<div>
+		<select id="select4" data-maxheight="120">
+			<option value="">카테고리선택</option>
+			<option value="17">자유게시판</option>
+			<option value="18">구매게시판</option>
+			<option value="19">중고장터</option>
+			<option value="20">개발자포럼</option>
+			<option value="20">NAS포럼</option>
+			<option value="20">재테크포럼</option>
+			<option value="20">요즘뜨는이야기</option>
+			<option value="20">그래서 하고 싶은 말이 뭐야?</option>
+			<option value="20">내가 하고 싶은 얘기는 말이지</option>
+			<option value="20">아무 말도 하지마</option>
+			<option value="20">말 안해도 다 알아</option>
+			<option value="20">알긴 뭘 알아 , 쥐뿔 모르면서</option>
+			<option value="20">어떻게 알았지.</option>
+			<option value="20">이거 뭐라고 써야되는건데???</option>
+		</select>
+	</div>
+
+</div>
+
+
+<script>
+$(function(){
+	$('select').jqListBox();
+	/* family site */
+	$('#siteLink').on('change',function(e){
+		var _value = $(this).val();
+		if (_value != undefined && _value != null && _value != ''){
+			window.open(_value);
+		}
+		e.preventDefault();
+	});
+});
+</script>
+</body>
+</html>

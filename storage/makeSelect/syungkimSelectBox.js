@@ -1,7 +1,9 @@
 /****************
- * jQuery Custom SelectBox
  * jqListBox
- * update : 2013/10/26
+ * jQuery Custom SelectBox
+ * syung2nara@gmail.com
+ * update : 2014/01/25
+ * version : 1.00
  *****************/
 (function($){
 	"use strict";
