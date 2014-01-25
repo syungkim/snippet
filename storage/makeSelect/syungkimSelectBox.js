@@ -28,9 +28,11 @@
 				IndexZ = 20-index,
 				selectedIdx = $this.find('option:selected').index();
 
-			var className = ($this.data('class')) ? ' '+$this.data('class') : '',
-				idName = ($this.attr('id')) ? $this.attr('id') : '',
-				_originWidth = ($this.data('width')) ? $this.data('width') : $this.width();
+			var _className = ($this.data('class')) ? ' '+$this.data('class') : '',
+				_idName = ($this.attr('id')) ? 'data-origin="'+$this.attr('id')+'"' : '',
+				_selectTitle = ($this.attr('title')) ? 'title="'+$this.attr('title')+'"' : '',
+				_originWidth = ($this.data('width')) ? $this.data('width') : $this.width(),
+				_maxHeight = ($this.data('maxheight')) ? 'max-height:'+$this.data("maxheight")+'px;' : '';
 
 			$.each($this.find('option'),function(){
 				var list = $(this);
@@ -47,7 +49,6 @@
 						$comboArrow = $combo.find('.jqListBox-combo-arrow'),
 						$list = $listbox.find('.jqListBox-list'),
 						$option = $list.find('.jqListBox-option');
-
 
 					return {
 						listbox : $listbox,
@@ -71,14 +72,9 @@
 					var html ='';
 					var selected = '';
 
-						html +=  '<span class="jqListBox'+className+'"data-origin="'+idName+'" style="z-index:'+IndexZ+'">';
+						html +=  '<span class="jqListBox'+_className+'"'+_idName+'style="z-index:'+IndexZ+'" '+_selectTitle+'>';
 						html += 	'<span class="jqListBox-combo"><a href="#" data-id="0"><span class="jqListBox-combo-txt">'+origin_Txt[0]+'</span><span class="jqListBox-combo-arrow"></span></a></span>';
-
-					if (!$this.data('maxheight')){
-						html += 	'<ul class="jqListBox-list" role="listbox" style="display:none">';
-					} else {
-						html += 	'<ul class="jqListBox-list" role="listbox" style="display:none;max-height:'+$this.data('maxheight')+'px">';
-					}
+						html += 	'<ul class="jqListBox-list" role="listbox" style="display:none;'+_maxHeight+'">';
 
 					for (var i=0;i < Len;i++){
 						var title = (origin_Tit[i] != undefined) ? 'title='+origin_Tit[i] : '';

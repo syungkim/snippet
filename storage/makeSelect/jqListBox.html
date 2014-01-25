@@ -38,7 +38,7 @@ body {font-size:12px;font-family:'돋움', dotum, Helvetica, sans-serif;}
 .jqListBox-list > li.selected > a {background-color:#f0f7fb;color:#2366b2;}
 </style>
 <script src="http://code.jquery.com/jquery-1.8.0.min.js"></script>
-<script src="jqListBox_min.js"></script>
+<script src="syungkimSelectBox.js"></script>
 </head>
 <body>
 <div class="intro">
@@ -58,6 +58,7 @@ body {font-size:12px;font-family:'돋움', dotum, Helvetica, sans-serif;}
 			<p class="code">$('select').jqListBox();</p>
 		</li>
 		<li><strong>title 사용가능 (미지정시 option의 텍스트를 title로 추가)</strong>
+			<p class="ex">&lt;select /&gt;에 title입력 시 .jqListBox에 title추가 됨</p>
 			<p class="ex">&lt;option /&gt;에 title입력 시 jQList에 title추가 됨</p>
 			<p class="code"> &lt;option value="http://www.nate.com" title="새창"&gt;nate&lt;/option&gt; </p>
 		</li>
@@ -119,15 +120,15 @@ body {font-size:12px;font-family:'돋움', dotum, Helvetica, sans-serif;}
 		</select>
 	</div>
 	<div>
-		<select name="" id="select2">
+		<select id="select2" title="조회 기간">
 			<option value="6">기간전체</option>
 			<option value="7">최근3개월</option>
-			<option value="8">최근6d개월</option>
+			<option value="8">최근6개월</option>
 			<option value="9">최근1년</option>
 			<option value="10">최근....</option>
 		</select>
 	</div>
-	<select name="" id="select3" data-class="select_termList" data-maxHeight="150">
+	<select data-class="select_termList" data-maxHeight="150">
 		<option value="11">인기/신규서비스</option>
 		<option value="12">포스트</option>
 		<option value="13">도돌런처</option>
