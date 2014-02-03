@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+<head>
+	<title></title>
+<style>
+#list {list-style:none;}
+#list:after {content:"";display:block;clear:both}
+#list li {position:relative;float:left;margin-left:5px;width:300px;text-align:center;}
+#list li > img {max-width:100%;width:100%;height:auto;vertical-align:top}
+</style>
+</head>
+<body>
+<ul id="list">
+</ul>
+<ul id="fileList"></ul>
+<input id="file" type="file" multiple/>
+<button id="read" onclick="tempSave();return false;">save!</button>
+
+<div id="content"></div>
+
+<script>
+var tempList = [];
+
+var $file = $('#file');
+var delImg = $('.delImg');
+
+$file.on('change',function(index){
+	var files = this.files;
+	var fileType = /image\/.*/;
+
+	$('#list').empty();
+
+	for (var i= 0,f; f=files[i];i++){
+
+		if (f.type.match(fileType)){
+			var reader = new FileReader();
+
+			reader.onload = (function(theFile){
+				return function(e){
+					var str = '<li><img src="'+ e.target.result+'"/></li>';
+					$('#list').append(str);
+					tempList.push(e.target.result);
+
+				}
+			})(f);
+
+			reader.readAsDataURL(f);
+		} else {
+			alert(f.name + ' is not image');
+			$file.val('');
+		}
+	}
+
+});
+
+function tempSave(){
+	if (tempList.length){
+		localStorage.clear();
+		for (var i= 0,Len = tempList.length;i<Len;i++){
+			localStorage.setItem('tempList'+i,tempList[i]);
+		}
+	} else {
+		alert('add file!');
+	}
+
+}
+
+function delPic(){
+	var $this = event.target;
+	var $target = $($this).prev('img');
+	var target_src = $target.attr('src');
+
+	var idx = $.inArray(target_src,tempList);
+
+	$target.closest('li').remove();
+	tempList.splice(idx,1);
+}
+
+$(function(){
+	if (localStorage.length){
+
+		var LS = localStorage;
+		var html ='';
+		for (var i= 0,Len=LS.length;i<Len;i++){
+			var data = LS.getItem('tempList'+i);
+			html += '<li><img src="'+data+'"/></li>';
+		}
+		$('#list').append(html);
+
+	}
+})
+
+</script>
+</body>
+</html>
