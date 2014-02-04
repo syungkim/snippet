@@ -71,22 +71,35 @@ function openModalLayer(layerID,origin){
 	});
 
 	$this.find('.dialog-close').click(function(e){
+		$('body').removeClass('dialog-open').off('touchmove');
 		$(origin).focus();
 		$this.hide();
 		e.preventDefault();
-		$('body').off('touchmove');
 	});
 
+	function setModalPosition(target){
+		var $modalBody = target.find('.dialog-body');
+		var _width = $modalBody.outerWidth(),
+			_height = $modalBody.outerHeight();
+		$modalBody.css({
+			'marginTop' : _height/2 * -1,
+			'marginLeft' : _width/2 * -1
+		})
+	}
+
 	$this.show().find($(el_firstFocus)).focus();
-	$('body').on('touchmove', function(e){e.preventDefault()});
-};
+	setModalPosition($this);
+	$('body').addClass('dialog-open').on('touchmove', function(e){e.preventDefault()});
+}
 //]]>
 </script>
 </head>
 <body>
 <style type="text/css">
-.underlayer {position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.4)}
-.dialog {position:absolute;top:50%;left:50%;width:300px;height:300px;margin:-150px 0 0 -150px;background:#fff;border:1px solid #000;}
+.dialog-open {overflow:hidden;}
+.dialog {position:fixed;top:0;left:0;width:100%;height:100%;overflow:auto;overflow-y:scroll;}
+.dialog-body {overflow:auto;position:absolute;top:50%;left:50%;width:400px;max-height:500px;background:#fff;border:1px solid #000;z-index:9999}
+.dialog-back {position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.4);z-index:9998}
 </style>
 <h1>[접근성] 레이어팝업</h1>
 <h2>사용법</h2>
@@ -138,14 +151,21 @@ function openModalLayer(layerID,origin){
 	<li><a href="#ly-login">444444</a></li>
 </ul>
 
-<div id="ly-login" style="display:none">
-	<div class="underlayer">&nbsp;</div>
-	<div class="dialog" tabindex="0" role="dialog" aria-labelledby="dialog-title">
-		<h1 id="dialog-title">레이어 타이틀</h1>
+<div id="ly-login" class="dialog" tabindex="-1" role="dialog" aria-labelledby="dialog-title" aria-hidden="true" style="display:none">
+	<div class="dialog-body" tabindex="0">
+		<h1 id="dialog-title">로그인(레이어 타이틀)</h1>
+		<div>
+			<input type="text" />
+			<input type="password" />
+		</div>
+		<p>내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용</p>
+		<p>내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용</p>
+		<p>내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용</p>
 		<p>내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용</p>
 		<button class="confirm dialog-close"><span>확인</span></button>
 		<button class="cancle dialog-close"><span>취소</span></button>
 	</div>
+	<div class="dialog-back">&nbsp;</div>
 </div>
 
 
