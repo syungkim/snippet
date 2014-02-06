@@ -122,6 +122,7 @@
 				bindEvent : function(){
 					var root = this;
 					var el = this.el();
+					var listLen = el.option.length;
 
 					el.combo.on({
 						'click' : function(e){
@@ -133,18 +134,27 @@
 							e.preventDefault();
 						},
 						'keydown' : function(e){
-							if (e.keyCode == 38 || e.keyCode == 40){
-								root.openList();
+							var idx = el.option.filter('.selected').index();
+
+							if (e.keyCode == 38){
+								if (idx > 0){
+									el.option.eq(idx-1).find('a').click();
+								}
+								e.preventDefault();
 							}
-							if (e.keyCode == 9 && e.shiftKey){
-								root.closeList();
+
+							if (e.keyCode == 40){
+								if (idx < listLen){
+									el.option.eq(idx+1).find('a').click();
+								}
+								e.preventDefault();
 							}
 						}
 					});
 
 					el.option.find('>a').on({
 						'click' : function(e){
-								var id = $(this).closest('li').data('id');
+							var id = $(this).closest('li').data('id');
 							root.changeOption(id);
 							root.closeList();
 							el.combo.focus();
@@ -158,10 +168,12 @@
 									idx--;
 								}
 								el.option.eq(idx).find('>a').focus();
+								e.preventDefault();
 							}
 							if (e.keyCode == 40){
 								idx++;
 								el.option.eq(idx).find('>a').focus();
+								e.preventDefault();
 							}
 							if (e.keyCode == 27){
 								root.closeList();
