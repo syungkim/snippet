@@ -135,7 +135,7 @@
 						},
 						'keydown' : function(e){
 							var idx = el.option.filter('.selected').index();
-
+							//arrow UP key
 							if (e.keyCode == 38){
 								if (idx > 0){
 									el.option.eq(idx-1).find('a').click();
@@ -143,11 +143,24 @@
 								e.preventDefault();
 							}
 
+							//arrow DOWN key
 							if (e.keyCode == 40){
 								if (idx < listLen){
 									el.option.eq(idx+1).find('a').click();
 								}
 								e.preventDefault();
+							}
+
+							//shift + tab key
+							if (e.keyCode == 9) {
+								if(e.shiftKey) {
+									root.closeList();
+								}
+							}
+
+							//esc key
+							if (e.keyCode == 27){
+								root.closeList();
 							}
 						}
 					});
