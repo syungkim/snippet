@@ -1,0 +1,8 @@
+/****************
+ * jqModal
+ * jQuery Custom LayerPopup
+ * iam@syung.kr
+ * update : 2014/02/06
+ * version : 1.00
+ *****************/
+var ___ROOT_PAST_FOCUS_ELEM=null;!function(e){e.fn.jqModal=function(t){function o(e){var t=e.find(".modal-dialog"),o=t.width(),n=t.height();t.css({marginTop:n/2*-1,marginLeft:o/2*-1})}var n,i,d=___ROOT_PAST_FOCUS_ELEM=e(this),a=e(t),f=[];a.find("*").each(function(e,t){t.tagName.match(/^A$|AREA|INPUT|TEXTAREA|SELECT|BUTTON/gim)&&-1!==parseInt(t.getAttribute("tabIndex"))&&f.push(t),null!==t.getAttribute("tabIndex")&&parseInt(t.getAttribute("tabIndex"))>=0&&32768!==t.getAttribute("tabIndex",2)&&f.push(t)}),n=f[0],i=f[f.length-1],e(document).on({keydown:function(t){var o=t.keyCode||t.which;27==o&&(a.find("[data-dismiss='modal']").click(),e(document).off("keydown"))}}),e(n).on({keydown:function(t){if(t.target==this){var o=t.keyCode||t.which;9==o&&t.shiftKey&&(e(i).focus(),t.preventDefault())}}}),e(i).on({keydown:function(t){var o=t.keyCode||t.which;9==o&&(t.shiftKey||(e(n).focus(),t.preventDefault()))}}),a.find("[data-dismiss='modal']").click(function(t){e("body").removeClass("modal-opened").off("touchmove"),d.focus(),a.hide(),t.preventDefault()}),a.show().find(e(n)).focus(),o(a),e("body").addClass("modal-opened").on("touchmove",function(e){e.preventDefault()})},e.jqModal_close=function(){var t=e(document).find(".modal:visible");t.each(function(){e("body").removeClass("modal-opened").off("touchmove"),___ROOT_PAST_FOCUS_ELEM.focus(),e(this).hide()})}}(jQuery);

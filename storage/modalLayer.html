@@ -7,127 +7,50 @@
 <meta name="viewport" content="width=device-width">
 <title></title>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.8.0.min.js"></script>
-<script type="text/javascript">
-//<![CDATA[
-
-/*
-* @date : 2013-09-08
-* @func
-* @name : openModalLayer
-* @param : layerID = #LayerID (string)
-* 		   origin  = this	  (string)
-*/
-function openModalLayer(layerID,origin){
-
-	var $this = $(layerID),
-		focusable = [];
-
-	$this.find('*').each(function(i, val) {
-		if(val.tagName.match(/^A$|AREA|INPUT|TEXTAREA|SELECT|BUTTON/gim) && parseInt(val.getAttribute("tabIndex")) !== -1) {
-			focusable.push(val);
-		}
-		if((val.getAttribute("tabIndex") !== null) && (parseInt(val.getAttribute("tabIndex")) >= 0) && (val.getAttribute("tabIndex", 2) !== 32768)) {
-			focusable.push(val);
-		}
-	});
-
-	var el_firstFocus = focusable[0],
-		el_lastFocus = focusable[focusable.length-1];
-
-	$(document).on({
-		'keydown' : function(e){
-			var keyCode = e.keyCode || e.which;
-			if (keyCode == 27){
-				$this.find("[data-dismiss='modal']").click();
-				$(document).off('keydown');
-			}
-		}
-	})
-
-	$(el_firstFocus).on({
-		'keydown' : function(e){
-			if (e.target == this){
-				var keyCode = e.keyCode || e.which;
-				if (keyCode == 9){
-					if (e.shiftKey){
-						$(el_lastFocus).focus();
-						e.preventDefault();
-					}
-				}
-			}
-		}
-	});
-
-	$(el_lastFocus).on({
-		'keydown' : function(e){
-			var keyCode = e.keyCode || e.which;
-			if (keyCode == 9){
-				if (!e.shiftKey){
-					$(el_firstFocus).focus();
-					e.preventDefault();
-				}
-			}
-		}
-	});
-
-	$this.find("[data-dismiss='modal']").click(function(e){
-		$('body').removeClass('modal-opened').off('touchmove');
-		$(origin).focus();
-		$this.hide();
-		e.preventDefault();
-	});
-
-	function setModalPosition(target){
-		var $modalBody = target.find('.modal-dialog');
-		var _width = $modalBody.outerWidth(),
-			_height = $modalBody.outerHeight();
-		$modalBody.css({
-			'marginTop' : _height/2 * -1,
-			'marginLeft' : _width/2 * -1
-		})
-	}
-
-	$this.show().find($(el_firstFocus)).focus();
-	setModalPosition($this);
-	$('body').addClass('modal-opened').on('touchmove', function(e){e.preventDefault()});
-}
-//]]>
-</script>
+<!--<script src="../js/libs/jquery-2.0.3.min.js"></script>-->
+<script src="jqModal_min.js"></script>
 </head>
 <body>
 <style type="text/css">
 .modal-opened {overflow:hidden;}
-
 .modal {display:none;overflow:auto;overflow-y:scroll;position:fixed;top:0;left:0;width:100%;height:100%;z-index:9998}
-.modal-fade {position:fixed;width:100%;height:100%;background:#000;
-	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
-	filter: alpha(opacity=50);
-	opacity: 0.5;
-}
+.modal-fade {position:fixed;width:100%;height:100%;background:#000;-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";filter: alpha(opacity=50);opacity:.5;}
 .modal-dialog {overflow:auto;position:absolute;top:50%;left:50%;width:400px;max-height:500px;background:#fff;border:1px solid #000;z-index:9999}
-	.modal-header {padding:10px;}
-	.modal-header .close {position:absolute;top:0;right:0;}
-	.modal-body {padding:10px;}
-	.modal-footer {padding:20px 0;text-align:center;}
-
+.modal-header {padding:10px;}
+.modal-header .close {position:absolute;top:0;right:0;}
+.modal-body {padding:10px;}
+.modal-footer {padding:20px 0;text-align:center;}
 </style>
-<h1>[접근성] 레이어팝업</h1>
+<h1>jqModal - layerPopup</h1>
+<div class="text">
+<pre>
+	jqModal_min.js 임포트
+
+	$('#list').find('a').click(function(e){
+		var target = $(this).attr('href');
+		$(this).jqModal(target);
+		e.preventDefault();
+	});
+
+	$(호출객체 {a tag} ).jqModal('오픈 할 레이어팝업 아이디 ex) #ly-login  {string} ');
+
+	버튼에 data-dismiss="modal" 을 셋팅하여 닫기기능을 추가하는 것 외에,
+	강제로 이벤트를 발생하고자 할 경우, $.jqModal_close(); 를 실행
+	ex )데이터를 전송할 경우 성공했을 경우 콜백으로 $.jqModal_close(); 을 실행
+
+</pre>
+</div>
 <hr>
 <ul id="list" style="margin:0 auto;width:500px;">
-	<li><a href="#ly-login">111111</a></li>
-	<li><a href="#ly-login">222222</a></li>
-	<li><a href="#ly-login">333333</a></li>
-	<li><a href="#ly-login">333333</a></li>
-	<li><a href="#ly-login">333333</a></li>
-	<li><a href="#ly-login">333333</a></li>
-	<li><a href="#ly-login">333333</a></li>
-	<li><a href="#ly-login">333333</a></li>
+	<li><a href="#ly-login">로그인</a></li>
+	<li><a href="#ly-login">테스트1</a></li>
+	<li><a href="#ly-login">테스트2</a></li>
 </ul>
 
 
 <!-- Modal -->
 <div id="ly-login" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modal-title" aria-hidden="true">
-	<div class="modal-fade">&nbsp;</div>
+	<div class="modal-fade" aria-hidden="true">&nbsp;</div>
 	<div class="modal-dialog" tabindex="0">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -147,8 +70,8 @@ function openModalLayer(layerID,origin){
 			</p>
 		</div>
 		<div class="modal-footer">
-			<button type="button" class="btn btn-primary">확인</button>
-			<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+			<button type="button" class="btn">확인</button>
+			<button type="button" class="btn" data-dismiss="modal">취소</button>
 		</div>
 	</div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
@@ -160,10 +83,10 @@ function openModalLayer(layerID,origin){
 $(function(){
 	$('#list').find('a').click(function(e){
 		var target = $(this).attr('href');
-		openModalLayer(target, this);
+		$(this).jqModal(target);
 		e.preventDefault();
 	});
-})
+});
 //]]>
 </script>
 </body>
