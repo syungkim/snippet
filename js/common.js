@@ -147,3 +147,37 @@ function chkUserPass(targetValue){
 		return false;
 	}
 }
+
+/******************************
+ * getRandomInArray
+ * 배열에서 지정한 갯수만큼 랜덤하게 추출
+ * @param arr {array}
+ * @param getLen {int}
+ * @returns {string}
+ *********************************/
+function getRandomInArray(arr,getLen){
+	var totalArr = arr;
+	var tempArr = [];
+	var result = '';
+
+	while (result.length < getLen){
+		var idx  = Math.floor( Math.random() * totalArr.length );
+		tempArr.push( totalArr[idx] );
+		totalArr.splice(idx,1);
+	}
+
+	result = tempArr.sort().join(',');
+
+	return result;
+
+}
+/************************************
+ * getRandomNumber
+ * 지정한 최대값 아래로 랜덤하게 리턴
+ * @param endRange {int}
+ * @returns {number}
+ ***********************************/
+function getRandomNumber(endRange){
+	var randomNumber = Math.ceil( Math.random() * endRange );
+	return randomNumber;
+}
