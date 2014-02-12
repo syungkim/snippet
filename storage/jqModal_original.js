@@ -28,7 +28,7 @@ var ___ROOT_PAST_FOCUS_ELEM = null;
 			'keydown' : function(e){
 				var keyCode = e.keyCode || e.which;
 				if (keyCode == 27){
-					$this.find("[data-dismiss='modal']").click();
+					closeModal();
 					$(document).off('keydown');
 				}
 			}
@@ -61,11 +61,15 @@ var ___ROOT_PAST_FOCUS_ELEM = null;
 		});
 
 		$this.find("[data-dismiss='modal']").click(function(e){
+			closeModal();
+			e.preventDefault();
+		});
+
+		function closeModal(){
 			$('body').removeClass('modal-opened').off('touchmove');
 			$origin.focus();
 			$this.hide();
-			e.preventDefault();
-		});
+		}
 
 		function setModalPosition(target){
 			var $modalBody = target.find('.modal-dialog');
