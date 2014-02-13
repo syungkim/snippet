@@ -25,20 +25,19 @@ body {font-size:12px;font-family:'돋움', dotum, Helvetica, sans-serif;}
 <style>
 .jqListBox {position:relative;top:0;left:0;display:inline-block;*display:inline;*zoom:1;vertical-align:top;font-size:12px;font-family:"돋움",Dotum, arial, Sans-serif}
 .jqListBox * {margin:0;padding:0;vertical-align:middle;text-decoration:none;}
-.jqListBox-combo {display:block}
-.jqListBox-combo > a {display:block;height:20px;border:1px solid #959595;white-space:nowrap;font-size:12px;line-height:20px;color:#606060;cursor:pointer;*zoom:1;}
-.jqListBox-combo > a:after {content:"";display:block;clear:both}
+.jqListBox-combo {display:block;height:20px;border:1px solid #959595;white-space:nowrap;font-size:12px;line-height:20px;color:#606060;cursor:pointer;*zoom:1;}
+.jqListBox-combo:after {content:"";display:block;clear:both}
 .jqListBox-combo-txt {float:left;overflow:hidden;text-overflow:ellipsis;text-indent:4px}
 .jqListBox-combo-arrow {float:left;width:20px;height:20px;background:#f7f5d2}
 .jqListBox-combo-arrow.on {background:#000}
 .jqListBox-list {overflow-x:hidden;overflow-y:auto;position:absolute;top:auto;left:0;background:#fff;border:1px solid #ccc;list-style:none;z-index:1;}
-.jqListBox-list > li > a{display:block;overflow:hidden;padding:3px 0;text-indent:4px;color:#606060;text-overflow:ellipsis;white-space:nowrap}
-.jqListBox-list > li > a:focus,
-.jqListBox-list > li > a:hover,
-.jqListBox-list > li.selected > a {background-color:#f0f7fb;color:#2366b2;}
+.jqListBox-option{display:block;overflow:hidden;padding:3px 0;text-indent:4px;color:#606060;text-overflow:ellipsis;white-space:nowrap;cursor:pointer;}
+.jqListBox-option:focus,
+.jqListBox-option:hover,
+.jqListBox-option.selected {background-color:#f0f7fb;color:#2366b2;}
 </style>
 <script src="http://code.jquery.com/jquery-1.8.0.min.js"></script>
-<script src="jqListBox_min.js"></script>
+<script src="syungkimSelectBox.js"></script>
 </head>
 <body>
 <div class="intro">
@@ -56,11 +55,6 @@ body {font-size:12px;font-family:'돋움', dotum, Helvetica, sans-serif;}
 	<ul>
 		<li><strong>최초생성</strong>
 			<p class="code">$('select').jqListBox();</p>
-		</li>
-		<li><strong>title 사용가능 (미지정시 option의 텍스트를 title로 추가)</strong>
-			<p class="ex">&lt;select /&gt;에 title입력 시 .jqListBox에 title추가 됨</p>
-			<p class="ex">&lt;option /&gt;에 title입력 시 jQList에 title추가 됨</p>
-			<p class="code"> &lt;option value="http://www.nate.com" title="새창"&gt;nate&lt;/option&gt; </p>
 		</li>
 		<li><strong>select의 id값이 data-origin 값으로 들어감</strong>
 			<p class="ex">시스템셀렉트의 ID값이 jqList의 data-origin으로 들어가서, 현재 jqList의 기본셀렉트를 탐색하는 등의 활용</p>
@@ -95,9 +89,9 @@ body {font-size:12px;font-family:'돋움', dotum, Helvetica, sans-serif;}
 
 .jqListBox {position:relative;top:0;left:0;display:inline-block;*display:inline;*zoom:1;vertical-align:top;font-size:12px;font-family:"돋움",Dotum, arial, Sans-serif}
 .jqListBox * {margin:0;padding:0;vertical-align:middle;text-decoration:none;}
-.jqListBox-combo {display:block}
-.jqListBox-combo > a {display:block;height:20px;border:1px solid #959595;white-space:nowrap;font-size:12px;line-height:20px;color:#606060;cursor:pointer;*zoom:1;}
-.jqListBox-combo > a:after {content:"";display:block;clear:both}
+.jqListBox-combo {display:block;height:20px;border:1px solid #959595;white-space:nowrap;font-size:12px;line-height:20px;color:#606060;cursor:pointer;*zoom:1;}
+.jqListBox-combo:after {content:"";display:block;clear:both}
+
 .jqListBox-combo-txt {float:left;overflow:hidden;text-overflow:ellipsis;text-indent:4px}
 .jqListBox-combo-arrow {float:left;width:20px;height:20px;background:#f7f5d2}
 .jqListBox-combo-arrow.on {background:#000}
@@ -114,9 +108,9 @@ body {font-size:12px;font-family:'돋움', dotum, Helvetica, sans-serif;}
 	<div>
 		<select id="siteLink">
 			<option value=''>관련사이트</option>
-			<option value="http://www.naver.com" title="새창">네이버</option>
-			<option value="http://www.daum.net" title="새창">다음</option>
-			<option value="http://www.nate.com" title="새창">nate</option>
+			<option value="http://www.naver.com" >네이버</option>
+			<option value="http://www.daum.net">다음</option>
+			<option value="http://www.nate.com">nate</option>
 		</select>
 	</div>
 	<div>
@@ -169,14 +163,6 @@ body {font-size:12px;font-family:'돋움', dotum, Helvetica, sans-serif;}
 <script>
 $(function(){
 	$('select').jqListBox();
-	/* family site */
-	$('#siteLink').on('change',function(e){
-		var _value = $(this).val();
-		if (_value != undefined && _value != null && _value != ''){
-			window.open(_value);
-		}
-		e.preventDefault();
-	});
 });
 </script>
 </body>
