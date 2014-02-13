@@ -62,13 +62,13 @@
 
 				init : function(){
 					var _this = this;
-					_this.makeHTML();
-					_this.setListBoxWidth();
-					_this.bindEvent();
-					_this.changeOption(selectedIdx);
+					_this.make();
+					_this.setWidth();
+					_this.bind();
+					_this.change(selectedIdx);
 				},
 
-				makeHTML : function(){
+				make : function(){
 					var html ='';
 					var selected = '';
 
@@ -89,7 +89,7 @@
 					$this.hide().after(html);
 				},
 
-				setListBoxWidth : function(){
+				setWidth : function(){
 					var el = this.el();
 					var calWidth = _originWidth - el.comboArr.outerWidth();
 					el.comboTxt.width(calWidth);
@@ -97,14 +97,14 @@
 
 				},
 
-				changeOption : function(idx){
+				change : function(idx){
 					var el = this.el();
 					el.option.removeClass('selected').eq(idx).addClass('selected');
 					el.combo.find('.jqListBox-combo-txt').attr('data-id',idx).text( origin_Txt[idx] );
 					$this.find('option:eq('+idx+')').prop("selected", true).end().change()
 				},
 
-				openList : function(){
+				open : function(){
 					var el = this.el();
 					el.combo.find('.jqListBox-combo-arrow').addClass('on');
 					el.list.slideDown(100,function(){
@@ -112,23 +112,23 @@
 					});
 				},
 
-				closeList : function(){
+				close : function(){
 					var el = this.el();
 					el.combo.focus().find('.jqListBox-combo-arrow').removeClass('on');
 					el.list.slideUp(100);
 				},
 
-				bindEvent : function(){
-					var root = this;
+				bind : function(){
+					var _this = this;
 					var el = this.el();
 					var listLen = el.option.length;
 
 					el.combo.on({
 						'click' : function(e){
 							if (el.list.is(':visible'))	{
-								root.closeList();
+								_this.close();
 							} else {
-								root.openList();
+								_this.open();
 							}
 							e.preventDefault();
 						},
@@ -143,11 +143,11 @@
 										break;
 
 									case 27 :	//esc
-										root.closeList();
+										_this.close();
 										break;
 
 									case 32 :	//space
-										root.openList();
+										_this.open();
 										break;
 
 									case 33 :	//pageUp
@@ -160,7 +160,7 @@
 										break;
 
 									case 34 :	//pageDown
-										if (Len >= idx+3){
+										if (Len > idx+3){
 											el.option.eq(idx+3).click();
 										} else {
 											el.option.eq(Len-1).click();
@@ -201,7 +201,7 @@
 								switch (e.keyCode) {
 									case 38 :	//up
 									case 40 :	//down
-										root.openList();
+										_this.open();
 										break;
 								}
 							}
@@ -211,8 +211,8 @@
 					el.option.on({
 						'click' : function(e){
 							var id = $(this).closest('li').data('id');
-							root.changeOption(id);
-							root.closeList();
+							_this.change(id);
+							_this.close();
 							el.combo.focus();
 							e.preventDefault();
 						},
@@ -230,7 +230,7 @@
 										break;
 
 									case 27 : //esc
-										root.closeList();
+										_this.close();
 										el.combo.focus();
 										break;
 
@@ -285,7 +285,7 @@
 								switch (e.keyCode) {
 									case 38 :	//up
 									case 40 :	//down
-										root.closeList();
+										_this.close();
 										break;
 								}
 							} //alt
@@ -296,14 +296,14 @@
 						'keydown' : function(e){
 							if (e.keyCode == 9) {
 								if(!e.shiftKey) {
-									root.closeList();
+									_this.close();
 								}
 							}
 						}
 					});
 
 					el.listbox.on('mouseleave',function(){
-						root.closeList();
+						_this.close();
 					});
 				}
 			};
@@ -319,7 +319,7 @@
 				}).next('.jqListBox').css('z-index','-1');
 
 				$this.change(function(){
-					make.changeOption($this.find('option:selected').index());
+					make.change($this.find('option:selected').index());
 				})
 
 
