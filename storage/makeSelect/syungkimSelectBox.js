@@ -2,8 +2,8 @@
  * jqListBox
  * jQuery Custom SelectBox
  * iam@syung.kr
- * update : 2014/02/13
- * version : 1.02
+ * update : 2014/02/26
+ * version : 1.03
  *****************/
 ;(function($){
 	"use strict";

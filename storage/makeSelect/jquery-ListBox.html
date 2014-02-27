@@ -22,38 +22,33 @@ body {font-size:12px;font-family:'돋움', dotum, Helvetica, sans-serif;}
 .selectBoxs {margin:20px 20px 200px}
 .selectBoxs > div {margin:10px 0;}
 </style>
-<style>
-.jqListBox {position:relative;top:0;left:0;display:inline-block;*display:inline;*zoom:1;vertical-align:top;font-size:12px;font-family:"돋움",Dotum, arial, Sans-serif}
-.jqListBox * {margin:0;padding:0;vertical-align:middle;text-decoration:none;}
-.jqListBox-combo {display:block;height:20px;border:1px solid #959595;white-space:nowrap;font-size:12px;line-height:20px;color:#606060;cursor:pointer;*zoom:1;}
-.jqListBox-combo:after {content:"";display:block;clear:both}
-.jqListBox-combo-txt {float:left;overflow:hidden;text-overflow:ellipsis;text-indent:4px}
-.jqListBox-combo-arrow {float:left;width:20px;height:20px;background:#f7f5d2}
-.jqListBox-combo-arrow.on {background:#000}
-.jqListBox-list {overflow-x:hidden;overflow-y:auto;position:absolute;top:auto;left:0;background:#fff;border:1px solid #ccc;list-style:none;z-index:1;}
-.jqListBox-option{display:block;overflow:hidden;padding:3px 0;text-indent:4px;color:#606060;text-overflow:ellipsis;white-space:nowrap;cursor:pointer;}
-.jqListBox-option:focus,
-.jqListBox-option:hover,
-.jqListBox-option.selected {background-color:#f0f7fb;color:#2366b2;}
-</style>
+<!-- jqlistbox Import -->
+<link rel="stylesheet" href="jquery-ListBox.css"/>
 <script src="http://code.jquery.com/jquery-1.8.0.min.js"></script>
-<script src="syungkimSelectBox.js"></script>
+<script src="jquery-ListBox_min.js"></script>
+<script>
+	$(function(){
+		$('select').jqListBox();
+	});
+</script>
+<!-- // jqlistbox Import -->
 </head>
 <body>
 <div class="intro">
 	<h1 class="intro-tit">jQListBox - jQuery SelectBox</h1>
 	<p class="intro-par"> 대부분의 커스텀셀렉트 라이브러리가 키보드접근을 지원하지 않거나, 하더라도 IE7을 지원하지 않는 등의 사용에 아쉬운점이 있어, 개인적으로 사용 할 목적으로 만들었음을 밝힙니다.<br />
 		<br />
-		IE7 ~ 10, 크롬30, 파이어폭스26, 오페라18 환경에서 테스트<br/>
+		IE7+, 크롬30, 파이어폭스26, 오페라18 환경에서 테스트<br/>
 
 		피드백 : syung2nara@gamil.com<br />
-		JS파일 : <a href="jqListBox_min.js">[다른이름으로 저장] </a>
+		JS파일 : <a href="jquery-ListBox_min.js">[다른이름으로 저장] </a>
 	</p>
 	<ol>
+		<li>2014/02/26   v1.03 : 모바일 지원</li>
 		<li>2014/02/13   v1.02 : ARIA role 적용</li>
 	</ol>
-
 </div>
+
 <div class="guide">
 	<h2>사용법</h2>
 	<ul>
@@ -161,12 +156,5 @@ body {font-size:12px;font-family:'돋움', dotum, Helvetica, sans-serif;}
 	</div>
 
 </div>
-
-
-<script>
-$(function(){
-	$('select').jqListBox();
-});
-</script>
 </body>
 </html>
