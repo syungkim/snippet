@@ -2,8 +2,8 @@
  * jqListBox
  * jQuery Custom SelectBox
  * iam@syung.kr
- * update : 2014/02/26
- * version : 1.03
+ * update : 2014/03/22
+ * version : 1.04
  *****************/
 ;(function($){
 	"use strict";
@@ -75,14 +75,14 @@
 					var selected = '';
 
 						html +=  '<span class="jqListBox'+_className+'"'+_idName+'style="z-index:'+IndexZ+'" '+_selectTitle+'>';
-						html += 	'<span class="jqListBox-combo" id="jqListBox-combo-'+index+'" tabindex="0" role="combobox" aria-autocomplete="list" aria-haspopup="true" aria-owns="jqListBox-list-'+index+'"><span class="jqListBox-combo-txt" data-id="0">'+origin_Txt[0]+'</span><span class="jqListBox-combo-arrow"></span></span>';
+						html += 	'<span class="jqListBox-combo" id="jqListBox-combo-'+index+'" tabindex="0" role="combobox" aria-autocomplete="list" aria-owns="jqListBox-list-'+index+'"><span class="jqListBox-combo-txt" data-id="0">'+origin_Txt[0]+'</span><span class="jqListBox-combo-arrow"></span></span>';
 						html += 	'<ul class="jqListBox-list" id="jqListBox-list-'+index+'"role="listbox" aria-hidden="false" role="listbox" aria-labelledby="jqListBox-combo-'+index+'" style="display:none;'+_maxHeight+'">';
 
 					for (var i=0;i < Len;i++){
 						if (i!=0){
-							html += 	'<li class="jqListBox-option" data-id="'+i+'" data-val="'+origin_Val[i]+'"role="option" tabindex="0">'+origin_Txt[i]+'</li>';
+							html += 	'<li class="jqListBox-option" id="jqListBox-option-'+index+'-'+i+'" data-id="'+i+'" data-val="'+origin_Val[i]+'"role="option" tabindex="0">'+origin_Txt[i]+'</li>';
 						} else {
-							html += 	'<li class="jqListBox-option selected" data-id="'+i+'" data-val="'+origin_Val[i]+'" role="option" tabindex="0">'+origin_Txt[i]+'</li>';
+							html += 	'<li class="jqListBox-option selected" id="jqListBox-option-'+index+'-'+i+'" data-id="'+i+'" data-val="'+origin_Val[i]+'" role="option" tabindex="0">'+origin_Txt[i]+'</li>';
 						}
 					}
 					html += 	'</ul>';
@@ -103,6 +103,7 @@
 					var el = this.el();
 					el.option.removeClass('selected').eq(idx).addClass('selected');
 					el.combo.find('.jqListBox-combo-txt').attr('data-id',idx).text( origin_Txt[idx] );
+					el.combo.attr('aria-activedescendant',el.option.eq(idx).attr('id'));
 					$this.find('option:eq('+idx+')').prop("selected", true).end().change();
                 },
 
