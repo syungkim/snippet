@@ -1,3 +1,4 @@
+@charset "UTF-8";
 .jqListBox {position:relative;top:0;left:0;display:inline-block;*display:inline;*zoom:1;vertical-align:top;font-size:12px;font-family:"돋움",Dotum, arial, Sans-serif}
 .jqListBox * {margin:0;padding:0;vertical-align:middle;text-decoration:none;}
 .jqListBox-combo {display:block;height:20px;border:1px solid #959595;border-radius:4px;white-space:nowrap;font-size:12px;line-height:20px;color:#606060;cursor:pointer;*zoom:1;}
