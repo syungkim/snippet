@@ -76,7 +76,7 @@
 
 						html +=  '<span class="jqListBox'+_className+'"'+_idName+'style="z-index:'+IndexZ+'" '+_selectTitle+'>';
 						html += 	'<span class="jqListBox-combo" id="jqListBox-combo-'+index+'" tabindex="0" role="combobox" aria-autocomplete="list" aria-owns="jqListBox-list-'+index+'"><span class="jqListBox-combo-txt" data-id="0">'+origin_Txt[0]+'</span><span class="jqListBox-combo-arrow"></span></span>';
-						html += 	'<ul class="jqListBox-list" id="jqListBox-list-'+index+'"role="listbox" aria-hidden="false" role="listbox" aria-labelledby="jqListBox-combo-'+index+'" style="display:none;'+_maxHeight+'">';
+						html += 	'<ul class="jqListBox-list" id="jqListBox-list-'+index+'"role="listbox" aria-hidden="false" role="listbox" aria-labelledby="jqListBox-combo-'+index+'" aria-expanded="false" style="display:none;'+_maxHeight+'">';
 
 					for (var i=0;i < Len;i++){
 						if (i!=0){
@@ -112,13 +112,13 @@
 					el.combo.find('.jqListBox-combo-arrow').addClass('on');
 					el.list.slideDown(100,function(){
 						el.list.find('.selected').focus();
-					});
+					}).attr('aria-expanded','true');
 				},
 
 				close : function(){
 					var el = this.el();
 					el.combo.focus().find('.jqListBox-combo-arrow').removeClass('on');
-					el.list.slideUp(100);
+					el.list.slideUp(100).attr('aria-expanded','false');
 				},
 
                 mobileType : function(){
