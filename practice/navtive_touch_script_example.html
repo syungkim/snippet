@@ -1,0 +1,100 @@
+<!doctype html>
+<!--[if ie 7]>         <html class="no-js lt-ie9 lt-ie8" lang="ko"> <![endif]-->
+<!--[if ie 8]>         <html class="no-js lt-ie9" lang="ko"> <![endif]-->
+<!--[if gt ie 8]><!--> <html class="no-js" lang="ko"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <link rel="dns-prefetch" href="//ajax.googleapis.com">
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,requiresActiveX=true">
+    <meta http-equiv="imagetoolbar" content="false">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="msapplication-tap-highlight" content="no" />
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.1/normalize.min.css">
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+</head>
+<body>
+    <p style="margin:10px">[TEST] Native Javascript for Touch</p>
+    <div id="area" style="overflow:hidden;position:relative;margin:0 auto;background:#555;width:320px;height:320px;">
+        <div id="obj" style="background:green;width:50px;height:50px;position:absolute;top:50%;left:50%;"></div>
+    </div>
+    <textarea id="print" rows="10" cols="50" style="display:block;width:80%;margin:5px auto;padding:10px;font-size:12px;"></textarea>
+    <script>
+    (function(win,doc){
+         win.addEventListener('load', function(){
+
+            var area = doc.querySelector('#area'),
+                obj = doc.querySelector('#obj'),
+                print = doc.querySelector('#print'),
+                areaOffset = {
+                    x : area.offsetLeft,
+                    y : area.offsetTop
+                },
+                objOffset = {
+                    x : obj.offsetLeft,
+                    y : obj.offsetTop
+                },
+                startPos = {
+                    x : 0,
+                    y : 0
+                },
+                dist = {
+                    x : 0,
+                    y : 0
+                };
+
+            area.addEventListener('touchstart', function(e){
+                e.preventDefault();
+                var touchobj = e.changedTouches[0];
+
+                //터치시작좌표에서 터치영역의offset값일 빼, 터치position값을 리턴 (좌상단 0,0으로 reset);
+                startPos.x = parseInt(touchobj.clientX,10) - areaOffset.x;
+                startPos.y = parseInt(touchobj.clientY,10) - areaOffset.y;
+
+                //오브젝트의 현재 좌표값을 가져옴
+                objOffset.x = (obj.dataset.xpos) ? obj.dataset.xpos : objOffset.x;
+                objOffset.y = (obj.dataset.ypos) ? obj.dataset.ypos : objOffset.y;
+
+                //log
+                print.value = '#touch start\n';
+
+            }, false);
+
+            area.addEventListener('touchmove', function(e){
+                e.preventDefault();
+                var touchobj = e.changedTouches[0];
+
+                //move : 좌표에서 시작점좌표를 제외하여, 이동거리를 계산
+                dist.x =  parseInt(touchobj.clientX,10) - areaOffset.x - startPos.x;
+                dist.y =  parseInt(touchobj.clientY,10) - areaOffset.y - startPos.y;
+
+                //터치시작점의 오브젝트의 위치에 이동거리를 추가
+                obj.style.left = (Number(objOffset.x) + dist.x) +'px';
+                obj.style.top = (Number(objOffset.y) + dist.y) + 'px';
+
+                //log
+                print.value += ' (거리) '+dist.x+', '+dist.y+' / (좌표) : '+parseInt(touchobj.clientX,10)+', '+parseInt(touchobj.clientY,10)+'\n';
+
+
+            }, false);
+
+            area.addEventListener('touchend', function(e){
+                e.preventDefault();
+                //이동이 끝난 지점의좌표를 obj의 data에 저장
+                obj.dataset.xpos = parseInt(obj.style.left,10);
+                obj.dataset.ypos = parseInt(obj.style.top,10);
+
+                //log
+                print.value += '#touch end\n';
+
+             });
+
+         }, false);
+
+
+    })(window,document);
+    </script>
+</body>
+</html>
