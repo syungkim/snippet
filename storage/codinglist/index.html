@@ -89,6 +89,38 @@
         .list-item .col-url {text-align:center;}
         .list-item .col-url a {color:#e01b22}
 
+        @media screen and (max-width:767px){
+            .list-head {display:none;}
+            .list-body {display:block;}
+            .list-item {display:block;border-top:1px solid #333;padding:10px;}
+            .list-item .col {display:block;width:100%;padding:0;border:none;}
+
+            .list-item:nth-child(odd) {background:#f9f9f9}
+
+            .list-item .col-no {display:inline;text-align:left;}
+            .list-item .col-state {text-align:right;}
+            .list-item .col-1,
+            .list-item .col-2,
+            .list-item .col-3,
+            .list-item .col-4,
+            .list-item .col-5 {display:inline;}
+
+            .list-item .col-etc {text-decoration:underline;}
+            .list-item .col:before{
+                content:" > ";
+            }
+            .list-item .col-no:before,
+            .list-item .col-url:before,
+            .list-item .col-state:before,
+            .list-item .col-etc:before{
+                display:none;
+            }
+
+            .list-item .col:empty {display:none;}
+            .list-item .col:empty:after {display:none;}
+
+        }
+
         @media print {
             @page {
                 size: landscape;
