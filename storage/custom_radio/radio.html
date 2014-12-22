@@ -1,55 +1,102 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ko" lang="ko">
+<!doctype html>
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang="ko"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang="ko"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="ko"> <!--<![endif]-->
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta http-equiv="Content-Script-Type" content="text/javascript" />
-<meta http-equiv="Content-Style-Type" content="text/css" />
-<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width, user-scalable=no" />
-<title></title>
-<style type="text/css">
-html, body, div, span, applet, object, iframe,h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code,del, dfn, em, font, img, ins, kbd, q, s, samp,small, strike, strong, sub, sup, tt, var, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td { margin: 0; padding: 0; border: 0; outline: 0; font-weight: inherit; font-style: inherit; font-size: 100%; font-family: inherit; vertical-align: baseline}
-body { line-height: 1; color: black; background: white;}
-ol, ul { list-style: none;}
-table { border-collapse: separate; border-spacing: 0;}
-caption, th, td { text-align: left; font-weight: normal;}
-</style>
+    <meta charset="utf-8">
+    <link rel="dns-prefetch" href="//ajax.googleapis.com">
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,requiresActiveX=true">
+    <meta http-equiv="imagetoolbar" content="false">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="msapplication-tap-highlight" content="no" />
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.1/normalize.min.css">
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+    <style>
+        li {list-style:none;}
+        input[type="radio"],
+        input[type="checkbox"] {opacity:0;}
+        input[type="radio"] + label ,
+        input[type="checkbox"] + label {position:relative;}
+        input[type="radio"],
+        input[type="checkbox"] {opacity:0;}
+        input[type="checkbox"] + label:after,
+        input[type="radio"] + label:after {
+            content:"";
+            display:block;
+            position:absolute;
+            top:0;
+            left:-1.3em;
+            width:1em;
+            height:1em;
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            background:url('minimal.png');
+            background-size:auto 100%;
+            cursor:pointer;
+        }
+        input[type="checkbox"] + label:after {background-position:0 0;}
+        input[type="radio"] + label:after {background-position:60% 0;}
+
+        input[type="checkbox"]:focus +label:after,
+        input[type="radio"]:focus +label:after {outline:1px dotted #333;}
+        input[type="checkbox"]:checked + label:after {background-position:20% 0;}
+        input[type="radio"]:checked + label:after {background-position:80% 0;}
+
+
+    </style>
 </head>
 <body>
-<style type="text/css">
-.customRadio {display:inline-block;margin:30px;outline:1px solid #000;}
-.customRadio:after {content:"";display:block;clear:both;}
-input[type="radio"],
-input[type="radio"]:focus {position:absolute;-moz-appearance:none;-webkit-appearance:none;z-index:-1}
-input[type="radio"] + label {padding-left:21px;}
-input[type="radio"] + label:before {content:"";display:inline-block;width:21px;height:21px;margin-right:2px;margin-left:-21px;background:url('radio_off.png') no-repeat; background-size:21px 21px;vertical-align:middle;}
-input[type="radio"]:checked + label:before {background-image:url('radio_on.png')}
+    <article class="l-article">
+        <header class="article-head">
+            <h1>Custom Checkbox, RadioButton</h1>
+        </header>
+        <section class="article-body">
+            <div class="paragraph">
+                <h2>Introduce</h2>
+                <p></p>
 
-.hidden {overflow:hidden;width:0;height:0;font-size:0;text-indent:-9999px;}
-</style>
-<p>[CSS] 모바일에서 사용하는, 커스텀디자인 라디오버튼</p>
-	<div class="customRadio">
-		<input type="radio" name="radio" id="radio1">
-		<label for="radio1">라디오버튼1</label>
-	</div>
-	<div class="customRadio">
-		<input type="radio" name="radio"id="radio2">
-		<label for="radio2">라디오버튼1</label>
-	</div>
-	<div class="customRadio">
-		<input type="radio" name="radio2" id="radio3">
-		<label for="radio3">라디오버튼2</label>
-	</div>
-	<div class="customRadio">
-		<input type="radio" name="radio2"id="radio4">
-		<label for="radio4">라디오버튼2</label>
-	</div>
-	<div class="customRadio">
-		<input type="radio" name="radio3" id="radio5">
-		<label for="radio5" class="hidden">라디오버튼hidden</label>
-	</div>
-	<div class="customRadio">
-		<input type="radio" name="radio3"id="radio6">
-		<label for="radio6" class="hidden">라디오버튼hidden</label>
-	</div>
+                <h2>Method</h2>
+                <ul>
+                    <li>IE7 +, Chrome, Firefox, Mobile(android, iphone, ipad)</li>
+                </ul>
+            </div>
+
+            <div class="example">
+                <ul>
+                    <li>
+                        <input type="radio" name="rdo" id="rdo-1"/><label for="rdo-1">라디오버튼1</label>
+                    </li>
+                    <li>
+                        <input type="radio" name="rdo" id="rdo-2"/><label for="rdo-2">라디오버튼2</label>
+                    </li>
+                </ul>
+
+                <ul>
+                    <li>
+                        <input type="checkbox" name="chk" id="chk-1"/><label for="chk-1">체크박스1</label>
+                    </li>
+                    <li>
+                        <input type="checkbox" name="chk" id="chk-2"/><label for="chk-2">체크박스2</label>
+                    </li>
+                </ul>
+            </div>
+
+            <pre class="code">
+
+            </pre>
+
+        </section>
+        <footer class="article-foot">
+            <span class="updateTime">update : <time>2014-10-22</time></span>
+            <b class="author">SYUNG</b>
+        </footer>
+    </article>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<!-- <script src="js/plugins.js"></script> -->
+<!-- <script src="js/main.js"></script> -->
 </body>
 </html>
