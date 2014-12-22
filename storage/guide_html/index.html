@@ -1,0 +1,83 @@
+<!doctype html>
+<!--[if ie 8]>         <html class="no-js lt-ie9" lang="ko"> <![endif]-->
+<!--[if gt ie 8]><!--> <html class="no-js" lang="ko"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,requiresActiveX=true">
+    <title>파일리스트 | YJ</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="static/vendor/normalize.min.css"/>
+    <link rel="stylesheet" href="static/common.css" />
+</head>
+
+<body>
+<!--[if lt ie 8]>
+<p class="browserupgrade"><strong>지원이 중단된</strong> 브라우저를 사용하고 있습니다. <a href="http://browsehappy.com/" target="_blank" title="새창">브라우저 업데이트</a>를 통해 최적화된 화면을 볼 수 있습니다.</p>
+<![endif]-->
+
+<div class="l-wrap">
+    <header class="l-head">
+        <h1 class="head-tit">YJ</h1>
+        <div class="l-tab">
+            <ul>
+                <li class="on"><a href="index.html">LIST</a></li>
+                <li><a href="guide.html">GUIDE</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main class="l-container">
+        <div class="l-list">
+            <div class="list-sch">
+                <span id="list-info" class="list-info"></span>
+                <input type="text" name="" id="list-sch_txt" class="list-sch_txt"/>
+            </div>
+            <div id="list-head" class="list-head"></div>
+            <div id="list-body"></div>
+        </div>
+    </main>
+
+    <footer class="l-foot">
+        <address>홍길동 : 010-000-0000</address>
+        <p>copyright</p>
+    </footer>
+</div>
+
+<script id="tpl-head" type="x-tmpl-mustache">
+<span class="col col-no">NO</span>
+{{#dep1}} <span class="col col-1">depth-1</span> {{/dep1}}
+{{#dep2}} <span class="col col-2">depth-2</span> {{/dep2}}
+{{#dep3}} <span class="col col-3">depth-3</span> {{/dep3}}
+{{#dep4}} <span class="col col-4">depth-4</span> {{/dep4}}
+{{#dep5}} <span class="col col-5">depth-5</span> {{/dep5}}
+{{#url}} <span class="col col-url">확인</span> {{/url}}
+{{#state}} <span class="col col-state">상태</span> {{/state}}
+{{#etc}} <span class="col col-etc">비고</span> {{/etc}}
+</script>
+
+<script id="tpl-body" type="x-tmpl-mustache">
+ <ul class="list-body">
+    {{#LIST}}
+    <li class="list-item">
+        <span class="col col-no">{{getIndex}}</span>
+        {{#HEAD.dep1}} <span class="col col-1">{{dep1}}</span> {{/HEAD.dep1}}
+        {{#HEAD.dep2}} <span class="col col-2">{{dep2}}</span> {{/HEAD.dep2}}
+        {{#HEAD.dep3}} <span class="col col-3">{{dep3}}</span> {{/HEAD.dep3}}
+        {{#HEAD.dep4}} <span class="col col-4">{{dep4}}</span> {{/HEAD.dep4}}
+        {{#HEAD.dep5}} <span class="col col-5">{{dep5}}</span> {{/HEAD.dep5}}
+        {{#HEAD.url}} <span class="col col-url"><a href="{{url}}" target="_blank">{{getfileName}}</a></span> {{/HEAD.url}}
+        {{#HEAD.state}} <span class="col col-state">{{#state}}완료{{/state}}</span> {{/HEAD.state}}
+        {{#HEAD.etc}} <span class="col col-etc">{{etc}}</span> {{/HEAD.etc}}
+    </li>
+    {{/LIST}}
+</ul>
+</script>
+
+<script src="static/vendor/jquery.min.js"></script>
+<script src="static/vendor/mustache.min.js"></script>
+<script src="html_list.js"></script>
+<script src="static/common.js"></script>
+
+</body>
+</html>
