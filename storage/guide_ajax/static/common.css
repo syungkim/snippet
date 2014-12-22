@@ -73,15 +73,15 @@ table th {font-weight:normal;}
 .l-foot {padding:12px 0;background:#333;text-align:center;color:#fff;font-size:12px;font-family:verdana;}
 .l-foot address {margin-bottom:1px;}
 
-.l-container {padding:30px;}
+.l-container {padding:20px;}
 .l-container:after {display:block;clear:both;content:"";}
 
-.l-nav {float:left;width:20%;border:1px solid #8c90a1;}
+.l-nav {display:none;float:left;width:20%;border:1px solid #8c90a1;}
 .l-nav li {border-top:1px solid #8c90a1;}
 .l-nav li:first-child {border-top:none;}
 .l-nav li a {display:block;height:35px;padding:0 10px;line-height:35px;color:#555;font-size:13px;font-family:verdana;background:#fff;}
 .l-nav .on a {position:relative;color:#333;font-weight:bold;background:#f7f7f7;}
-.l-nav .on a:before {content:"";position:absolute;top:0;left:0;display:inline-block;width:5px;height:100%;background:red;}
+.l-nav .on a:before {content:"";position:absolute;top:0;left:-1px;display:inline-block;width:5px;height:100%;background:#333;}
 .l-nav li a:hover, .l-nav li a:focus {color:#333;font-weight:bold;background:#fff;}
 
 .l-content {float:left;width:77%;margin-left:3%;}
@@ -115,7 +115,7 @@ table th {font-weight:normal;}
 
 @media all and (max-width: 768px) {
     .l-head {position:relative;}
-    .l-container {margin-top:0;}
+    .l-container {margin-top:0;padding:10px;}
 
 }
 
