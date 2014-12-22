@@ -1,5 +1,4 @@
 var __CONSTANT_HEAD, __CONSTANT_BODY;
-
 /**
  * 보여줄 칼럼에는 1, 보여주지 않을 칼럼에는 0
  */
@@ -32,6 +31,20 @@ __CONSTANT_BODY = {
  *  각 뎁스에 해당하는 key값으로 입력
  */
 __CONSTANT_BODY.LIST = [
+/**
+ * example
+ *  {
+ *      dep1 : '1뎁스 메뉴 이름',                               //option (뎁스에 해당하는 것 하나이상 입력, 비워두거나 선언안하면 출력안됨)
+ *      dep2 : '2뎁스 메뉴 이름',                             //option
+ *      dep3 : '3뎁스 메뉴 이름',                             //option
+ *      dep4 : '4뎁스 메뉴 이름',                             //option
+ *      dep5 : '5뎁스 메뉴 이름',                             //option
+ *      url :  '/beauty/content/beauty/html/info/grade.html'    //파일URL
+ *      state : 1,                                              //1을 넣으면 상태에 '완료' 라는 문구 출력, //option
+ *      etc : '디자인변경예정'                                  //비고 란에 출력
+ *  }
+ *
+ */
     //메인
     {
         dep1 : 'Main',
@@ -143,7 +156,8 @@ __CONSTANT_BODY.LIST = [
     },{
         dep4 : '투표종료시',
         url : 'http://markup.springworks.co.kr:8080/beauty/content/beauty/html/event/talk_view_type2_closed.html',
-        etc : '디자인변경'
+        etc : '디자인변경',
+        state : 1
     },{
         dep2 : '뷰티포인트 서포터즈',
         url : 'http://markup.springworks.co.kr:8080/beauty/content/beauty/html/event/supporter.html',

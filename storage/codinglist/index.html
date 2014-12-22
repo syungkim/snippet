@@ -63,25 +63,26 @@
         *:after,
         *:before {box-sizing: border-box;}
 
-        .list {font-size:12px;}
-        .list .col {padding:5px 10px;text-align:left;}
-        .list .col-no {width:40px;}
-        .list .col-1 {}
-        .list .col-2 {}
-        .list .col-3 {}
-        .list .col-4 {}
-        .list .col-5 {}
-        .list .col-url {width:220px;}
-        .list .col-state {width:50px}
-        .list .col-etc {}
+        .l-list {font-size:12px;}
+        .l-list .col {padding:5px 10px;text-align:left;}
+        .l-list .col-no {width:40px;}
+        .l-list .col-1 {}
+        .l-list .col-2 {}
+        .l-list .col-3 {}
+        .l-list .col-4 {}
+        .l-list .col-5 {}
+        .l-list .col-url {width:220px;}
+        .l-list .col-state {width:50px}
+        .l-list .col-etc {}
 
-        .list-info {padding:10px;}
-
+        .list-info {margin:10px;}
         .list-head {display:table;width:100%;table-layout: fixed;border-collapse: collapse;}
         .list-head .col {display:table-cell;padding:7px 0;background:#666;border-left:1px solid #fff;text-align:center;color:#fff;}
 
         .list-body {display:table;width:100%;table-layout: fixed;border-collapse: collapse;}
-        .list-item {display:table-row;}
+        .list-sch {margin:10px;}
+        .list-sch_txt {width:100%;max-width:300px;height:30px;border:1px solid #ccc;text-align:left;}
+        .list-item {display:table-row}
         .list-item:hover {background:#f9f9f9}
         .list-item .col {display:table-cell;padding:5px 10px;border:1px #c4c4c4 solid;}
         .list-item .col-no,
@@ -89,14 +90,13 @@
         .list-item .col-url {text-align:center;}
         .list-item .col-url a {color:#e01b22}
 
+
         @media screen and (max-width:767px){
             .list-head {display:none;}
             .list-body {display:block;}
             .list-item {display:block;border-top:1px solid #333;padding:10px;}
             .list-item .col {display:block;width:100%;padding:0;border:none;}
-
             .list-item:nth-child(odd) {background:#f9f9f9}
-
             .list-item .col-no {display:inline;text-align:left;}
             .list-item .col-state {text-align:right;}
             .list-item .col-1,
@@ -104,7 +104,6 @@
             .list-item .col-3,
             .list-item .col-4,
             .list-item .col-5 {display:inline;}
-
             .list-item .col-etc {text-decoration:underline;}
             .list-item .col:before{
                 content:" > ";
@@ -115,32 +114,38 @@
             .list-item .col-etc:before{
                 display:none;
             }
-
             .list-item .col:empty {display:none;}
             .list-item .col:empty:after {display:none;}
-
+            .list-item .col-url {margin:10px 0;text-align:left;}
+            .list-item .col-url:before {content:"파일명 : ";display:inline;}
+            .list-item .col-state {color:red;}
         }
 
         @media print {
             @page {
                 size: landscape;
-                margin: 0;
+                margin: 2mm;
             }
-
             a, a:visited { color:#333; text-decoration: underline; }
-            a[href]:after { content: " (" attr(href) ")";font-size:9; }
+            /*a[href]:after { content: " (" attr(href) ")";font-size:9; }*/
             pre, blockquote { border: 1px solid #999; page-break-inside: avoid; }
-            tr, img { page-break-inside: avoid; }
+            li, tr, img { page-break-inside: avoid; }
             img { max-width: 100% !important; }
-
-            .list-head .col {background:#666 !important;color:#fff;}
-            .list .col-url {width:auto !important;}
+            .l-list {font-size:10pt;}
+            .list-sch {margin:0;}
+            .list-sch_txt {display:none;}
+            .list-head {background:#666;}
+            .list-head .col {color:#666;border:1pt solid #ddd !important;}
+            .list-item .col {padding:2px;border:1pt solid #ddd !important;border-collapse: separate;border-spacing: 0;}
         }
     </style>
 </head>
 <body>
-<div class="list">
-    <div id="list-info" class="list-info"></div>
+<div class="l-list">
+    <div class="list-sch">
+        <span id="list-info" class="list-info"></span>
+        <input type="text" name="" id="list-sch_txt" class="list-sch_txt"/>
+    </div>
     <div id="list-head" class="list-head"></div>
     <div id="list-body"></div>
 </div>
@@ -182,20 +187,26 @@
 (function($){
     "use strict";
     var tpl_head = $('#tpl-head').html(),
-            tpl_body = $('#tpl-body').html();
-
-    var tpl_head_rendered = Mustache.render(tpl_head, __CONSTANT_HEAD),
-            tpl_body_rendered = Mustache.render(tpl_body, __CONSTANT_BODY);
+        tpl_body = $('#tpl-body').html(),
+        tpl_head_rendered = Mustache.render(tpl_head, __CONSTANT_HEAD),
+        tpl_body_rendered = Mustache.render(tpl_body, __CONSTANT_BODY),
+        $listBody = $('#list-body');
 
     $('#list-head').html(tpl_head_rendered);
-    $('#list-body').html(tpl_body_rendered);
-    var $item = $('.list-item'),
+    $listBody.html(tpl_body_rendered);
+
+    var $item = $listBody.find('.list-item'),
             _total = $item.length,
             _empty = $item.find('.col-state:empty').length,
             _end = _total-_empty;
 
-
     $('#list-info').text('진척률 : '+( (_end/_total)* 100 ) +'%   (' +  _end+ '/' + _total+')');
+
+    $('#list-sch_txt').on('keydown keyup',function(e){
+        var sSearchVal = $(this).val();
+        $listBody.find('li').hide();
+        $listBody.find(':contains('+sSearchVal+')').closest('li').show();
+    })
 })(jQuery);
 </script>
 </body>
