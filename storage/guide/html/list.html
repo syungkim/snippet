@@ -1,0 +1,39 @@
+<div class="l-list">
+    <div class="list-sch">
+        <span id="list-info" class="list-info"></span>
+        <input type="text" name="" id="list-sch_txt" class="list-sch_txt"/>
+    </div>
+    <div id="list-head" class="list-head"></div>
+    <div id="list-body"></div>
+</div>
+<script id="tpl-head" type="x-tmpl-mustache">
+<span class="col col-no">NO</span>
+{{#dep1}} <span class="col col-1">depth-1</span> {{/dep1}}
+{{#dep2}} <span class="col col-2">depth-2</span> {{/dep2}}
+{{#dep3}} <span class="col col-3">depth-3</span> {{/dep3}}
+{{#dep4}} <span class="col col-4">depth-4</span> {{/dep4}}
+{{#dep5}} <span class="col col-5">depth-5</span> {{/dep5}}
+{{#url}} <span class="col col-url">확인</span> {{/url}}
+{{#state}} <span class="col col-state">상태</span> {{/state}}
+{{#etc}} <span class="col col-etc">비고</span> {{/etc}}
+</script>
+
+<script id="tpl-body" type="x-tmpl-mustache">
+ <ul class="list-body">
+    {{#LIST}}
+    <li class="list-item">
+        <span class="col col-no">{{getIndex}}</span>
+        {{#HEAD.dep1}} <span class="col col-1">{{dep1}}</span> {{/HEAD.dep1}}
+        {{#HEAD.dep2}} <span class="col col-2">{{dep2}}</span> {{/HEAD.dep2}}
+        {{#HEAD.dep3}} <span class="col col-3">{{dep3}}</span> {{/HEAD.dep3}}
+        {{#HEAD.dep4}} <span class="col col-4">{{dep4}}</span> {{/HEAD.dep4}}
+        {{#HEAD.dep5}} <span class="col col-5">{{dep5}}</span> {{/HEAD.dep5}}
+        {{#HEAD.url}} <span class="col col-url"><a href="{{url}}" target="_blank">{{getfileName}}</a></span> {{/HEAD.url}}
+        {{#HEAD.state}} <span class="col col-state">{{#state}}완료{{/state}}</span> {{/HEAD.state}}
+        {{#HEAD.etc}} <span class="col col-etc">{{etc}}</span> {{/HEAD.etc}}
+    </li>
+    {{/LIST}}
+</ul>
+</script>
+<script src="file_list.js"></script>
+<script>makeFileList();</script>
