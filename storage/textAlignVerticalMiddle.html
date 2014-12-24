@@ -13,24 +13,19 @@ ol, ul { list-style: none;}
 table { border-collapse: separate; border-spacing: 0;}
 caption, th, td { text-align: left; font-weight: normal;}
 </style>
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.8.0.min.js"></script>
-<script type="text/javascript">
-//<![CDATA[
 
-//]]>
-</script>
+<style>
+    .alignVmid {position:relative;min-height:300px; line-height:18px; color:#828282;text-align:center;} /* min-height:지정 */
+    .alignVmid-dummy {overflow:hidden;display:inline-block;*display:inline;*zoom:1;width:0;height:300px;vertical-align:middle;} /* min-height 만큼 높이지정, width:0, inline-block; vertical-align:middle */
+    .alignVmid-txt {width: 200px;display: inline-block;vertical-align: middle;color: #666;} /* inline-block; vertical-align:middle*/
+</style>
 </head>
 <body>
-<style type="text/css">
-.alignBox {position:relative;min-height:300px; line-height:18px; color:#828282;text-align:center;} /* min-height:지정 */
-.blank{overflow:hidden;display:inline-block;*display:inline;*zoom:1;width:0;height:300px;vertical-align:middle;} /* min-height 만큼 높이지정, width:0, inline-block; vertical-align:middle */
-.text {width: 200px;display: inline-block;vertical-align: middle;color: #666;} /* inline-block; vertical-align:middle*/
-</style>
 <div class="wrap" style="border:1px solid #ccc;">
-
-	<div class="alignBox">
-		<span class="blank"></span>
-		<p class="text">자유롭게 대화하고<br>개성있게 표현하는<br>메신저 그 이상의 서비스</p>
+    <p>영역 높이 고정일 경우에, IE7부터 가능한 텍스트(여러줄) 세로 가운데 정렬</p>
+	<div class="alignVmid">
+		<span class="alignVmid-dummy"></span>
+		<p class="alignVmid-txt">자유롭게 대화하고<br>개성있게 표현하는<br>메신저 그 이상의 서비스</p>
 	</div>
 
 </div>
