@@ -5,10 +5,9 @@
  * update : 2014/02/06
  * version : 1.00
  *****************/
-var ___ROOT_PAST_FOCUS_ELEM = null;
-(function($){
+(function(win, doc, $){
 	$.fn.jqModal = function(targetLayerID){
-		var $origin = ___ROOT_PAST_FOCUS_ELEM = $(this),
+		var $origin = win.___ROOT_PAST_FOCUS_ELEM = $(this),
 			$this = $(targetLayerID),
 			focusable = [],
 			el_firstFocus, el_lastFocus;
@@ -95,4 +94,4 @@ var ___ROOT_PAST_FOCUS_ELEM = null;
 			$(this).hide();
 		});
 	};
-})(jQuery);
+})(window, document, jQuery);
