@@ -3,12 +3,14 @@
 <!--[if gt ie 8]><!--> <html class="no-js" lang="ko"> <!--<![endif]-->
 <head>
     <meta charset="utf-8">
+    <meta name="robots" content="noindex">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,requiresActiveX=true">
-    <title>파일리스트 | YJ</title>
+    <title>GUIDE LIST | YJ</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="static/vendor/normalize.min.css"/>
-    <link rel="stylesheet" href="static/common.css" />
+    <link rel="stylesheet" href="../static/vendor/normalize.min.css"/>
+    <link rel="stylesheet" href="../static/common.css" />
+    <script src="../static/vendor/html5shiv-printshiv.min.js"></script>
 </head>
 
 <body>
@@ -21,24 +23,26 @@
         <h1 class="head-tit">YJ</h1>
         <div class="l-tab">
             <ul>
-                <li><a href="index.html">LIST</a></li>
-                <li class="on"><a href="guide.html">GUIDE</a></li>
+                <li><a href="../index.html">LIST</a></li>
+                <li class="on"><a href="index.html">GUIDE</a></li>
             </ul>
+            <button class="func--print" onclick="allPagePrint();">전체페이지 인쇄</button>
         </div>
     </header>
 
     <main class="l-container">
         <nav class="l-nav">
-            <ul>
-                <li class="on"><a href="guide.html">Guide</a></li>
+            <ul id="nav-pc" class="screen_p">
+                <li class="on"><a href="index.html">Guide</a></li>
                 <li><a href="form.html">Form</a></li>
-                <li><a href="#">Table</a></li>
-                <li><a href="#">Button</a></li>
-                <li><a href="#">Tab</a></li>
+                <li><a href="table.html">Table</a></li>
+                <li><a href="button.html">Button</a></li>
+                <li><a href="tab.html">Tab</a></li>
             </ul>
+            <select class="screen_m" id="nav-mobile" title="메뉴 선택"></select>
         </nav>
 
-        <section class="l-content">
+        <section id="l-content" class="l-content">
             <!-- content -->
             <h2 class="blind">GUIDE</h2>
 
@@ -71,7 +75,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="msapplication-tap-highlight" content="no" />
         <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.1/normalize.min.css">
-        <link rel="stylesheet" type="text/css" href="static/common.css" />
+        <link rel="stylesheet" type="text/css" href="../static/common.css" />
         <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
     </head>
@@ -134,7 +138,7 @@
     </footer>
 </div>
 
-<script src="static/vendor/jquery.min.js"></script>
-<script src="static/common.js"></script>
+<script src="../static/vendor/jquery.min.js"></script>
+<script src="../static/common.js"></script>
 </body>
 </html>

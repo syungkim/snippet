@@ -3,12 +3,14 @@
 <!--[if gt ie 8]><!--> <html class="no-js" lang="ko"> <!--<![endif]-->
 <head>
     <meta charset="utf-8">
+    <meta name="robots" content="noindex">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,requiresActiveX=true">
-    <title>파일리스트 | YJ</title>
+    <title>FILE LIST | YJ</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="static/vendor/normalize.min.css"/>
-    <link rel="stylesheet" href="static/common.css" />
+    <link rel="stylesheet" href="static/common.css"/>
+    <script src="static/vendor/html5shiv-printshiv.min.js"></script>
 </head>
 
 <body>
@@ -22,16 +24,18 @@
         <div class="l-tab">
             <ul>
                 <li class="on"><a href="index.html">LIST</a></li>
-                <li><a href="guide.html">GUIDE</a></li>
+                <li><a href="guide/index.html">GUIDE</a></li>
             </ul>
         </div>
     </header>
 
     <main class="l-container">
+        <h2 class="blind">FILE LIST</h2>
+
         <div class="l-list">
             <div class="list-sch">
                 <span id="list-info" class="list-info"></span>
-                <input type="text" name="" id="list-sch_txt" class="list-sch_txt"/>
+                <input type="text" name="" id="list-sch_txt" class="list-sch_txt" title="검색어 입력" placeholder="검색할 단어를 입력하세요."/>
             </div>
             <div id="list-head" class="list-head"></div>
             <div id="list-body"></div>
@@ -40,7 +44,7 @@
 
     <footer class="l-foot">
         <address>홍길동 : 010-000-0000</address>
-        <p>copyright</p>
+        <p>copyright ⓒ 2014 YeoJin All Rights Reserved</p>
     </footer>
 </div>
 
